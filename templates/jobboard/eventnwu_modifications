@@ -1,0 +1,199 @@
+{% extends 'event/base.html' %}
+{% load i18n crispy_forms_tags static hashed_static event_tags markdown_extras mathfilters %}
+
+{% block extra_js %}
+<script type="text/javascript" src="{% hashed_static 'js/global.js' %}"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZ2FsaW5hZ2lsbWFuIiwiYSI6ImNtMWN3aDNuOTJndHIybXB6bHRmMGJiMTEifQ.QZ2YaAU6_UPGQw0rsVi-xQ';
+document.addEventListener("DOMContentLoaded", function () {
+    const rawLngLat = "{{ eventnwu.lnglat|default:'' }}";
+    if (rawLngLat) {
+        const [lng, lat] = rawLngLat.split(',').map(part => parseFloat(part.trim()));
+        const map = new mapboxgl.Map({
+            container: 'mapbox-map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [lng, lat],
+            zoom: 13
+        });
+        new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+    }
+});
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="{% hashed_static 'css/main.css' %}">
+{% endblock %}
+
+{% block content %}
+<style>
+.participant-avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+.participant-avatar:hover {
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.6);
+}
+.active-avatar {
+  border-color: #198754;
+  box-shadow: 0 0 8px rgba(25, 135, 84, 0.6);
+}
+.card-img-top {
+  object-fit: cover;
+  max-height: 250px;
+  width: 100%;
+}
+</style>
+
+<div id="about" class="with-background" style="background-image: url(/uploads/event/backgrounds/event.jpg)">
+  <div class="overlay">
+    {% if messages or not eventnwu.is_page_live %}
+    <div class="container messages">
+      <div class="row">
+        {% if not eventnwu.is_page_live %}
+        <div class="alert alert-info">
+          {% url 'admin:core_event_change' eventnwu.pk as event_url %}
+          {% blocktrans trimmed %}
+          Hi there! You can see this page because you're logged in admin. When you want to make it public,
+          go to your website section in the admin and click on 'Website is ready'.
+          {% endblocktrans %}
+        </div>
+        {% endif %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="container">
+  <div class="text-center my-4">
+    <h5>Walk "{{ eventnwu.name }}" in {{ eventnwu.city }} organized by "{{ eventnwu.nwgroup }}" group on {{ eventnwu.date }}.</h5>
+  </div>
+
+  {% if registered %}
+  <div class="alert alert-success text-center">
+    You have already registered for this event.
+    <div class="mt-2">
+      <a class="btn btn-primary" href="{% url 'core:project-submission' eventnwu.uuuid %}">Write Comment</a>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center mb-4">
+    <strong class="me-2">
+      <a href="?">{{ participants|length }} people going</a>, including:
+    </strong>
+    <div class="d-flex gap-3 flex-wrap">
+      {% for user in participants %}
+      <div class="text-center">
+        <a href="?participant={{ user.id }}">
+          <img
+            src="{{ user.avatar.url|default:'/static/default-avatar.png' }}"
+            class="rounded-circle participant-avatar {% if request.GET.participant == user.id|stringformat:'s' %}active-avatar{% endif %}"
+            alt="{{ user.name }}"
+          />
+        </a>
+        <div class="mt-1">{{ user.name }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row">
+      {% for sub in page_obj %}
+      <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm transition-card">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+              Posted by {{ sub.participant.name }} | {{ sub.created_on|date:"F j, Y, g:i a" }}
+            </h6>
+            {% if sub.imgpresent %}
+            <img src="{{ sub.imgpresent.url }}" class="card-img-top" alt="Submission image">
+            {% endif %}
+            <p class="card-text">{{ sub.details|linebreaks }}</p>
+            {% if sub|can_edit:request.user %}
+            <a href="{% url 'core:update-submission' sub.id %}" class="btn btn-outline-primary mt-2">
+              <i class="bi bi-pencil-square"></i> Edit
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12"><p>No comments yet.</p></div>
+      {% endfor %}
+    </div>
+
+    <nav aria-label="Pagination">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+
+  {% else %}
+  <div id="apply" class="with-background" style="background-image: url(/uploads/event/backgrounds/apply.jpg)">
+    <div class="overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7 offset-md-5">
+            <h2>Applications are now open!</h2>
+            <p>Application process closes on {{ eventnwu.date }}.</p>
+            {% if request.user.is_authenticated %}
+            <a class="btn btn-primary" href="{% url 'core:registration-confirmation' eventnwu.uuuid %}">Apply for event</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <section class="my-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card p-3 shadow-sm">
+          <p>📍 <strong>Where:</strong> {{ eventnwu.address }}</p>
+          <p>📅 <strong>When:</strong> {{ eventnwu.date }}</p>
+          <p>⏰ <strong>Time:</strong> {{ eventnwu.start_time }}</p>
+          {% if eventnwu.unit == 0 %}
+          <p class="text-muted">The route is {{ eventnwu.distance }} ml ({{ eventnwu.distance|mul:1.60934|floatformat:2 }} km) long. Duration: {{ eventnwu.duration }}</p>
+          {% else %}
+          <p class="text-muted">The route is {{ eventnwu.distance }} km ({{ eventnwu.distance|mul:0.621371192|floatformat:2 }} ml) long. Duration: {{ eventnwu.duration }}</p>
+          {% endif %}
+          <div id="mapbox-map" style="height: 400px;"></div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="markdown-body">
+          {{ eventnwu.preview|markdown|safe }}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

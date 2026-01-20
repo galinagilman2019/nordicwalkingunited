@@ -1,0 +1,56 @@
+{% load core_tags i18n static %}
+
+<div class="navbar navbar-expand-lg navbar-default" role="navigation">
+  <div class="container">
+    <a class="navbar-brand" href="/"><img src="{% static 'img/logo.png' %}" width="90" height="90" alt="Nordic Walk United" /></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">{% trans "Toggle navigation" %}
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+    <div id="nav--col3">
+        {% if request.user.is_authenticated %}
+
+
+        {% endif %}
+    </div>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+
+            <li class="nav-item dropdown px-2">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {% trans "QUICK LINKS" %}  <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                <li><a class="dropdown-item" href="{% url 'core:home_nwu' %}">{% trans "NWU Groups" %}</a></li>
+                <li><a class="dropdown-item" href="{% url 'core:events' %}">{% trans "Events" %}</a></li>
+                <li><hr class="dropdown-divider"></li>
+
+
+                <li><a class="dropdown-item" href="{% url 'blog:post_list' %}">{% trans "Our Blog" %}</a></li>
+            </ul>
+            </li>
+                        <li class="nav-item px-2">
+
+                <a class="nav-link" href="{% url 'contact:contact_form' %}">{% trans "Contact us" %}</a>
+            </li>
+        </ul>
+         <div id="nav--col3">
+
+        {% if request.user.is_authenticated %}
+        <a class="btn btn--secondary" href="{% url 'core:account' %}?event={{ eventnwu.uuuid }}">{{request.user.name}}</a>
+        <a class="btn btn--primary" href="{% url 'core:logout' %}">Logout</a>
+        {% else %}
+        <a class="btn btn--secondary" href="{% url 'core:login' %}?event={{ eventnwu.uuuid }}">Login</a>
+        {%comment%}<a class="btn btn--primary" href="{% url 'core:register' %}?event={{ eventnwu.uuuid }}">Register</a>{%endcomment%}
+        {% if eventnwu %}
+    <a href="{% url 'core:event_rules' eventnwu.uuuid %}" class="btn btn-primary">Register</a>
+{% endif %}
+
+        {% endif %}
+    </div>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>

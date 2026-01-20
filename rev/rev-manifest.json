@@ -1,0 +1,22 @@
+{
+  "css/admin.css": "css/admin-67e711a674.css",
+  "css/event.css": "css/event-3c72f52286.css",
+  "css/global.css": "css/global-6a71a0dcbd.css",
+  "js/applications.js": "js/applications-758e3246e8.js",
+  "js/event.js": "js/event-74d3f6b0c3.js",
+  "js/global.js": "js/global-f3a00448e5.js",
+  "js/organize.js": "js/organize-a1ab05543b.js",
+  "vendor/codemirror/lib/codemirror.css": "vendor/codemirror/lib/codemirror-ac1dcd3f70.css",
+  "vendor/codemirror/lib/codemirror.js": "vendor/codemirror/lib/codemirror-066d7e1b28.js",
+  "vendor/codemirror/mode/xml/xml.js": "vendor/codemirror/mode/xml/xml-b9b27201f9.js",
+  "vendor/css/sss.css": "vendor/css/sss-c7c64f9c11.css",
+  "vendor/jquery-ui/jquery-ui.min.css": "vendor/jquery-ui/jquery-ui.min-1e3b8c9342.css",
+  "vendor/jquery-ui/jquery-ui.min.js": "vendor/jquery-ui/jquery-ui.min-ec6b7870ec.js",
+  "vendor/js/bootstrap.bundle.min.js": "vendor/js/bootstrap.bundle.min-2e477967e4.js",
+  "vendor/js/jquery.min.js": "vendor/js/jquery.min-2edc942c0b.js",
+  "vendor/js/sss.min.js": "vendor/js/sss.min-34f122e9a0.js",
+  "vendor/select2-bootstrap-theme/select2-bootstrap.css": "vendor/select2-bootstrap-theme/select2-bootstrap-78df9ecff1.css",
+  "vendor/select2-bootstrap-theme/select2-bootstrap.min.css": "vendor/select2-bootstrap-theme/select2-bootstrap.min-16f1184c79.css",
+  "vendor/select2/css/select2.min.css": "vendor/select2/css/select2.min-d44571114a.css",
+  "vendor/select2/js/select2.min.js": "vendor/select2/js/select2.min-97fd156ee3.js"
+}

@@ -1,0 +1,85 @@
+{% extends 'global/base.html' %}
+{% load i18n static %}
+
+{% block content %}
+<div class="container">
+  <section id="events">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>
+          {% trans "Upcoming events" %}
+          {% if selected_country or selected_city %}
+  <a class="ical btn btn-default btn-xs"
+     href="{% url 'core:events_map' %}?{% if selected_country %}country={{ selected_country|urlencode }}{% endif %}{% if selected_country and selected_city %}&{% endif %}{% if selected_city %}city={{ selected_city|urlencode }}{% endif %}">
+    {% trans "MAP" %}
+  </a>
+{% else %}
+  <a class="ical btn btn-default btn-xs" href="{% url 'core:events_map' %}">{% trans "MAP" %}</a>
+{% endif %}
+        </h2>
+
+        <!-- Country / City Filter -->
+        <form method="get" class="mb-3">
+          <label for="country">{% trans "Country:" %}</label>
+          <select id="country" name="country" onchange="this.form.submit()">
+            <option value="">{% trans "-- All countries --" %}</option>
+            {% for country in countries %}
+              <option value="{{ country }}" {% if country == selected_country %}selected{% endif %}>
+                {{ country }}
+              </option>
+            {% endfor %}
+          </select>
+
+          {% if selected_country %}
+            <label for="city">{% trans "City:" %}</label>
+            <select id="city" name="city" onchange="this.form.submit()">
+              <option value="">{% trans "-- All cities --" %}</option>
+              {% for city in cities %}
+                <option value="{{ city }}" {% if city == selected_city %}selected{% endif %}>
+                  {{ city }}
+                </option>
+              {% endfor %}
+            </select>
+          {% endif %}
+
+          {% if selected_country or selected_city %}
+            <a href="{% url 'core:events' %}" class="btn btn-outline-secondary btn-sm">
+              ✕ {% trans "Clear filters" %}
+            </a>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+
+    <!-- Upcoming Events -->
+    {% for event in future_events %}
+      {% if forloop.first %}<div class="row">{% endif %}
+      <div class="col event">{% include 'includes/_event.html' with event=event %}</div>
+      {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+      {% if forloop.last %}</div>{% endif %}
+    {% empty %}
+      <p>{% trans "No upcoming events found." %}</p>
+    {% endfor %}
+
+    <section id="organize">
+      {% include 'includes/_no_event.html' %}
+    </section>
+
+    <!-- Past Events -->
+    <div class="row past-events">
+      <div class="col-md-12">
+        <h2>{% trans "Past events" %}</h2>
+      </div>
+    </div>
+
+    {% for event in past_events %}
+      {% if forloop.first %}<div class="row">{% endif %}
+      <div class="col event">{% include 'includes/_event.html' with event=event %}</div>
+      {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+      {% if forloop.last %}</div>{% endif %}
+    {% empty %}
+      <p>{% trans "No past events found." %}</p>
+    {% endfor %}
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% load i18n static hashed_static %}
+
+<link rel="stylesheet" href="{% hashed_static 'css/main.css' %}">
+<footer>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-2">
+        <p>NWU</p>
+        <ul>
+          {% url 'core:faq' as faq_url %}
+          <li><a href="{{ faq_url|default:'/en/faq/' }}">{% trans "FAQ" %}</a></li>
+
+          {% url 'core:foundation' as foundation_url %}
+          <li><a href="{{ foundation_url|default:'/en/foundation/' }}">{% trans "Foundation" %}</a></li>
+{%comment%}
+          {% url 'core:newsletter' as newsletter_url %}
+          <li><a href="{{ newsletter_url|default:'/en/newsletter/' }}">{% trans "Newsletter" %}</a></li>
+
+          <li><a href="http://gitter.im/DjangoGirls/tutorial" rel="noopener" target="_blank">
+            <strong>{% trans "Chat with us!" %}</strong>
+          </a></li>
+
+          {% url 'coc_legacy' lang=LANGUAGE_CODE|default:"en" as coc_url %}
+          <li><a href="{{ coc_url|default:'/en/coc/' }}">{% trans "Code of Conduct" %}</a></li>
+{%endcomment%}
+        </ul>
+      </div>
+
+      <div class="col-md-2">
+        <p>{% trans "Support us" %}</p>
+        <ul>
+          {% url 'donate' as donate_url %}
+          <li><a href="{{ donate_url|default:'/en/donate/' }}">{% trans "Make a donation" %}</a></li>
+{%comment%}
+          <li><a href="https://www.patreon.com/djangogirls" rel="noopener" target="_blank">
+            {% trans "Donate on Patreon" %}
+          </a></li>
+{%endcomment%}
+          {% url 'core:contribute' as contribute_url %}
+          <li><a href="{{ contribute_url|default:'/en/contribute/' }}">{% trans "Contribute" %}</a></li>
+
+          {# Sponsors route commented out until available #}
+          {# {% url 'donations:sponsors' as sponsors_url %} #}
+          {# <li><a href="{{ sponsors_url|default:'/en/donate/' }}">{% trans "Our Sponsors" %}</a></li> #}
+
+          {%comment%}<li><a href="https://drive.google.com/file/d/1rzYFUQ--allwxSousxefIhtrkJmVj26U/view?usp=sharing"
+                 rel="noopener" target="_blank">{% trans "Sponsor us" %}</a></li>{%endcomment%}
+        </ul>
+      </div>
+
+      <div class="col-md-2">
+        <p>{% trans "Community" %}</p>
+        <ul>
+
+          <li><a href="https://www.youtube.com/@NordicWalkingUnited" rel="noopener" target="_blank">Facebook</a></li>
+
+        </ul>
+      </div>
+
+      <div class="col-md-2">
+        <p>{% trans "Resources" %}</p>
+        <ul>
+
+          <li><a  href="{% url 'core:nwu_rules' %}">{% trans "Guidelines" %}</a></li>
+          <li><a  href="{% url 'core:coc' %}">{% trans "NWU Code of Conduct" %}</a></li>
+          <li><a  href="{% url 'core:nwu_resources' %}">{% trans "Tutorials" %}</a></li>
+          <li><a  href="{% url 'blog:post_list' %}">{% trans "Our Blog" %}</a></li>
+
+          {%comment%}<li><a href="https://organize.djangogirls.org/" rel="noopener" target="_blank">{% trans "Organizer's Manual" %}</a></li>
+          <li><a href="https://coach.djangogirls.org/" rel="noopener" target="_blank">{% trans "Coaching Guide" %}</a></li>
+          <li><a href="https://tutorial-extensions.djangogirls.org/" rel="noopener" target="_blank">{% trans "Tutorial Extensions" %}</a></li>{%endcomment%}
+
+        </ul>
+      </div>
+
+
+      <div class="col-md-2">
+        <p>♥</p>
+        <ul>
+                    <li>{% blocktrans %}<b>{{ future_events_count }}</b> upcoming events{% endblocktrans %}</li>
+                    <li>{% blocktrans %}<b>{{ past_events_count }}</b> past events{% endblocktrans %}</li>
+                    <li>{% blocktrans %}<b>{{ organizers_count }}</b> attendees{% endblocktrans %}</li>
+                    <li>{% blocktrans %}<b>{{ countries_count }}</b> countries{% endblocktrans %}</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</footer>

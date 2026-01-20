@@ -1,0 +1,53 @@
+{% extends 'global/base.html' %}
+{% load i18n rev static %}
+
+{% block extra_js %}
+  {# jQuery from CDN #}
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+          crossorigin="anonymous"></script>
+
+  {# your existing global.js that uses $ and .sss() #}
+  <script type="text/javascript" src="{% static_rev 'js/global.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<section id="events">
+  <div class="row">
+    <div class="col-md-12">
+      <h6>
+        {% trans "Upcoming events for" %} {{ nwgroup_name }}
+      </h6>
+           <p>
+        <a href="{% url 'core:home_nwu' %}" class="btn btn-secondary btn-sm">
+          « {% trans "Back to groups" %}
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="upcoming-events">
+    <div class="row-container">
+      {% for event in future_events %}
+        {% if forloop.first %}<div class="row">{% endif %}
+        <div class="col event">
+          {% include 'includes/_event.html' with uuuid=event.uuuid %}
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+        {% if forloop.last %}</div>{% endif %}
+      {% empty %}
+        <p>No upcoming events for this group.</p>
+      {% endfor %}
+    </div>
+
+    {% if future_events_count > 0 %}
+      <div class="show-more">
+        <a href="javascript:;">
+          {% blocktrans %}Show all {{ future_events_count }} upcoming events{% endblocktrans %} »
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

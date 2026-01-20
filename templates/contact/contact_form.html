@@ -1,0 +1,156 @@
+{% extends "global/base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2>{% trans "Contact Us" %}</h2>
+
+  {% include 'includes/_info_messages.html' %}
+
+  <p>{% trans "Hi! We would love to hear from you!" %}</p>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <p>
+      {% blocktrans trimmed %}
+        To ask what you need to know use the form below. :)
+      {% endblocktrans %}
+    </p>
+
+    <div class="row">
+      <div class="col-md-6">
+        {% include 'includes/_field.html' with field=form.name %}
+      </div>
+      <div class="col-md-6">
+        {% include 'includes/_field.html' with field=form.email %}
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.contact_type.label }}</label>
+      <div>{{ form.contact_type }}</div>
+      {{ form.contact_type.errors }}
+      <small class="text-muted d-block mt-1">
+        {% trans "Choose Local Organizers to reach your city/group team, or Support Team for technical/general help." %}
+      </small>
+    </div>
+
+    <!-- Organizer-only filters -->
+    <div id="organizer-filters" class="border rounded p-3 mb-3" style="display:none;">
+      <div class="mb-3">
+        <label for="country" class="form-label">{% trans "Country" %}</label>
+        <select id="country" class="form-select">
+          <option value="">{% trans "Select country" %}</option>
+          {% for country in countries %}
+            <option value="{{ country }}">{{ country }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="nwgroup" class="form-label">{% trans "NWU Group" %}</label>
+        <select id="nwgroup" class="form-select" disabled>
+          <option value="">{% trans "Select NWU Group" %}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-3" id="event-row" style="display:none;">
+      <label for="{{ form.event.id_for_label }}" class="form-label">{{ form.event.label }}</label>
+      {{ form.event|add_class:"form-select" }}
+      {{ form.event.errors }}
+      <small class="text-muted d-block mt-1">{% trans "Required when contacting Local Organizers." %}</small>
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.message.id_for_label }}" class="form-label">{{ form.message.label }}</label>
+      {{ form.message|add_class:"form-control" }}
+      {{ form.message.errors }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">{% trans "Send Message" %}</button>
+  </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Data from the server
+  const upcomingEvents = {{ upcoming_events_json|safe }};
+
+  // Query elements AFTER DOM is ready
+  const countrySelect     = document.getElementById('country');
+  const nwgroupSelect     = document.getElementById('nwgroup');
+  const eventSelect       = document.getElementById('{{ form.event.id_for_label }}'); // usually "id_event"
+  const organizerFilters  = document.getElementById('organizer-filters');
+  const eventRow          = document.getElementById('event-row');
+
+  function getOrganizerValue() {
+    const radios = document.querySelectorAll('input[name="contact_type"]');
+    return radios.length ? radios[0].value : null; // first option = “Local Organizers”
+  }
+  function isLocalOrganizersSelected() {
+    const chosen = document.querySelector('input[name="contact_type"]:checked');
+    return chosen && chosen.value === getOrganizerValue();
+  }
+  function clearSelect(select, placeholder) {
+    if (!select) return;
+    select.innerHTML = '';
+    const opt = document.createElement('option');
+    opt.value = '';
+    opt.textContent = placeholder || '';
+    select.appendChild(opt);
+  }
+  function toggleOrganizerUI() {
+    const show = isLocalOrganizersSelected();
+    organizerFilters.style.display = show ? '' : 'none';
+    eventRow.style.display = show ? '' : 'none';
+    if (!show) clearSelect(eventSelect, "{% trans 'Select' %}");
+  }
+  function onCountryChange() {
+    const selectedCountry = countrySelect.value;
+    clearSelect(nwgroupSelect, "{% trans 'Select NWU Group' %}");
+    clearSelect(eventSelect, "{% trans 'Select' %}");
+    nwgroupSelect.disabled = !selectedCountry;
+    if (!selectedCountry) return;
+
+    const groups = [...new Set(
+      upcomingEvents.filter(e => e.country === selectedCountry).map(e => e.nwgroup)
+    )].sort();
+
+    groups.forEach(g => {
+      const opt = document.createElement('option');
+      opt.value = g; opt.textContent = g;
+      nwgroupSelect.appendChild(opt);
+    });
+  }
+  function onGroupChange() {
+    const selectedCountry = countrySelect.value;
+    const selectedGroup   = nwgroupSelect.value;
+    clearSelect(eventSelect, "{% trans 'Select' %}");
+    if (!selectedCountry || !selectedGroup) return;
+
+    upcomingEvents
+      .filter(e => e.country === selectedCountry && e.nwgroup === selectedGroup)
+      .forEach(ev => {
+        const opt = document.createElement('option');
+        opt.value = ev.id; // PK expected by ModelChoiceField
+        opt.textContent = `${ev.city} — ${ev.date} — ${ev.nwgroup}`;
+        eventSelect.appendChild(opt);
+      });
+  }
+
+  // Attach listeners now that nodes exist
+  document.addEventListener('change', e => {
+    if (e.target && e.target.name === 'contact_type') toggleOrganizerUI();
+  });
+  countrySelect?.addEventListener('change', onCountryChange);
+  nwgroupSelect?.addEventListener('change', onGroupChange);
+
+  // Initialize UI state
+  toggleOrganizerUI();
+});
+</script>
+{% endblock %}

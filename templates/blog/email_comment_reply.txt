@@ -1,0 +1,8 @@
+Hello {{ comment.name|default:_("there") }},
+You’ve received a reply to your comment on the "{{ post.title }}" blog.
+You can view the reply by clicking the link below:
+👉 {{ url }}
+
+Thank you for being part of our community and for sharing your thoughts with us.
+With steady steps and open hearts,
+Nordic Walking United Team

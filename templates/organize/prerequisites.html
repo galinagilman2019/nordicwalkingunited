@@ -1,0 +1,165 @@
+{% extends 'global/base.html' %}
+{% load i18n rev static %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static_rev 'js/organize.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container organize">
+
+        <div class="row">
+            <div class="col-md-12">
+                {% include 'includes/_organize-progress.html' with active_step=1 %}
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="panel">
+                    <h1>{% trans "Prerequisites to Organize a Nordic Walking Group in our NWU community:" %}</h1>
+
+                    <p class="intro">
+                        {% blocktrans trimmed %}
+                            Before becoming a Nordic Walking Group Organizer, please confirm the following by checking each box:
+                        {% endblocktrans %}
+                    </p>
+
+                    <form data-required-form action="{% url 'organize:commitment' %}">
+                        <fieldset>
+                            <legend>
+                                {% blocktrans trimmed %}
+                                   I have read the below required documents:
+                                {% endblocktrans %}
+                            </legend>
+<p class="text-muted small">
+  {% trans "Click each link to open the document in a new tab, then check the box once you've read it." %}
+</p>
+                            <ul class="unstyled">
+                                <li class="checkbox-wrapper">
+                                    <input type="checkbox" id="environment" name="environment" required />
+                                     <label for="environment">
+                                       📘
+
+                                        <a href="{% url 'core:nwu_resources'%}?audience=handbook" target="_blank" rel="noopener">{% trans "NWU Handbook" %}</a>
+                                    </label>
+                                </li>
+
+                                {# 2. Introduction to the Organizer’s Tutorial #}
+  <li class="checkbox-wrapper">
+    <input type="checkbox" id="introduction" name="introduction" required />
+    <label for="introduction">
+      📖
+      {% if manuals.organizers_tutorial %}
+        <a href="{% url 'core:nwu_resource_detail' manuals.organizers_tutorial.slug %}" target="_blank" rel="noopener">
+          {{ manuals.organizers_tutorial.title }}
+        </a>
+      {% else %}
+        <a href="{% url 'core:nwu_resources' %}?audience=team" target="_blank" rel="noopener">
+          {% trans "Introduction to the Organizer’s Tutorial" %}
+        </a>
+      {% endif %}
+    </label>
+  </li>
+  {# 3. Application Accepted — Next steps #}
+  <li class="checkbox-wrapper">
+    <input type="checkbox" id="faq" name="faq" required />
+    <label for="faq">
+      ✅
+      {% if manuals.application_accepted %}
+        <a href="{% url 'core:nwu_resource_detail' manuals.application_accepted.slug %}" target="_blank" rel="noopener">
+          {{ manuals.application_accepted.title }}
+        </a>
+      {% else %}
+        <a href="{% url 'core:nwu_resources' %}?audience=team" target="_blank" rel="noopener">
+          {% trans "Application Accepted — Next Steps for New Organizers" %}
+        </a>
+      {% endif %}
+    </label>
+  </li>
+
+  {# 4. Step-by-step guide #}
+  <li class="checkbox-wrapper">
+    <input type="checkbox" id="step-by-step" name="step-by-step" required />
+    <label for="step-by-step">
+      📝
+      {% if manuals.the_event_is_ready_for_public_viewing %}
+        <a href="{% url 'core:nwu_resource_detail' manuals.the_event_is_ready_for_public_viewing.slug %}" target="_blank" rel="noopener">
+          {{ manuals.the_event_is_ready_for_public_viewing.title }}
+        </a>
+      {% else %}
+        <a href="{% url 'core:nwu_resources' %}?audience=team" target="_blank" rel="noopener">
+          {% trans "How to Organize a Nordic Walking Group & Event — Step by Step" %}
+        </a>
+      {% endif %}
+    </label>
+  </li>
+
+
+<li class="checkbox-wrapper">
+    <input type="checkbox" id="faq" name="faq" required />
+    <label for="faq">
+    ❓
+        <a href="{{ faq_url|default:'/en/faq_org/' }}"
+           target="_blank"
+           rel="noopener noreferrer">
+           {% trans "Frequently Asked Questions (FAQ) for Organizers" %}
+        </a>
+    </label>
+</li>
+
+                            </ul>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>{% trans "I meet the requirements to organize a Nordic Walking Group and event:" %}</legend>
+                            <ul class="unstyled">
+                                <li class="checkbox-wrapper">
+                                    <input type="checkbox" id="eighteen" name="eighteen" required />
+                                    <label for="eighteen">
+                                        {% trans "I am at least 18 years old." %}
+                                    </label>
+                                </li>
+                                <li class="checkbox-wrapper">
+                                    <input type="checkbox" id="non-profit" name="non-profit" required />
+                                    <label for="non-profit">
+                                        {% trans "The event will be non-profit in nature." %}
+                                    </label>
+                                </li>
+                                <li class="checkbox-wrapper">
+    <input type="checkbox" id="terms-service" name="terms-service" required />
+
+    <label for="terms-service">
+        {% trans "I confirm that I have read and accept" %}
+        <a href="{% url 'core:nwu_rules' %}" target="_blank" rel="noopener">
+            {% trans "NWU Terms of Service, Privacy Policy and Photo & Media Release" %}
+        </a>.
+    </label>
+</li>
+
+                            </ul>
+                        </fieldset>
+
+                        <div class="cta-wrapper">
+                            <button type="submit" class="cta">{% trans "Get started!" %}</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{%comment%}   <li><a class="dropdown-item" href="{% url 'core:nwu_rules' %}">{% trans "Guidelines" %}</a></li>                     {%endcomment%}

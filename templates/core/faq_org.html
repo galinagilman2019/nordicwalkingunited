@@ -1,0 +1,293 @@
+{% extends "global/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "NWU • Organizer FAQ" %}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-3">{% trans "Frequently Asked Questions for Event Organizers" %}</h1>
+  <p class="text-muted mb-4">
+    {% trans "Practical guidance for NWU organizers and hosts: event length, sweeps, safety, photos, group dynamics, fees, and getting help." %}
+  </p>
+
+  <div class="row">
+
+    <!-- SIDEBAR -->
+    <div class="col-md-3 mb-4">
+      <div class="p-3 border rounded bg-light">
+        <h5 class="mb-3">{% trans "On this page" %}</h5>
+        <ul class="list-unstyled small mb-0">
+          <li><a href="#faq-org-basics" class="text-decoration-none">{% trans "Organizer Basics" %}</a></li>
+          <li><a href="#faq-org-safety" class="text-decoration-none">{% trans "Safety, Respect & Photos" %}</a></li>
+          <li><a href="#faq-org-group" class="text-decoration-none">{% trans "Group Dynamics & Growth" %}</a></li>
+          <li><a href="#faq-org-policy" class="text-decoration-none">{% trans "Policies & Fees" %}</a></li>
+          <li><a href="#faq-org-help" class="text-decoration-none">{% trans "Help & Support" %}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="col-md-9">
+
+      <!-- INTRO -->
+      <div class="mb-4">
+        <p>Nordic Walking United (NWU) is built on kindness, community, and the joy of moving together in nature.</p>
+        <p>
+          To keep every walk, workshop, and gathering safe, respectful, and uplifting, all Organizers, Hosts,
+          Members, Participants, and Guests agree to follow this Code of Conduct and organizer guidelines.
+        </p>
+        <p>
+          This shared commitment ensures that NWU events remain welcoming, inclusive, and enjoyable for everyone —
+          from first-time walkers to experienced hosts.
+        </p>
+      </div>
+
+      <!-- ORGANIZER BASICS -->
+      <h3 id="faq-org-basics" class="mt-0">{% trans "Organizer Basics" %}</h3>
+      <div class="accordion mb-4" id="accordionOrganizerBasics">
+
+        <!-- Q1 EVENT LENGTH -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="ob1-h">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ob1" aria-expanded="true" aria-controls="ob1">
+              {% trans "How long should the Nordic Walking event be?" %}
+            </button>
+          </h2>
+          <div id="ob1" class="accordion-collapse collapse show" aria-labelledby="ob1-h" data-bs-parent="#accordionOrganizerBasics">
+            <div class="accordion-body">
+              <p>Most NWU walks are designed to be enjoyable and accessible for a wide range of people.</p>
+              <ul>
+                <li>Typical walks last <strong>30–90 minutes</strong>, including warm-up and cool-down.</li>
+                <li>Longer walks are fine as long as they match your group’s ability level.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q2 SWEEP -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="ob2-h">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ob2" aria-expanded="false" aria-controls="ob2">
+              {% trans "Do I need a sweep for every walk?" %}
+            </button>
+          </h2>
+          <div id="ob2" class="accordion-collapse collapse" aria-labelledby="ob2-h" data-bs-parent="#accordionOrganizerBasics">
+            <div class="accordion-body">
+              <p>A sweep walks at the end of the group and keeps everyone together.</p>
+              <ul>
+                <li>Recommended for groups with <strong>more than 8 people</strong>.</li>
+                <li>Optional for small groups — but always helpful.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q3 WEATHER -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="ob3-h">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ob3" aria-expanded="false" aria-controls="ob3">
+              {% trans "What should I do if the weather is bad?" %}
+            </button>
+          </h2>
+          <div id="ob3" class="accordion-collapse collapse" aria-labelledby="ob3-h" data-bs-parent="#accordionOrganizerBasics">
+            <div class="accordion-body">
+              <p>Safety always comes first. You may:</p>
+              <ul>
+                <li>cancel the event,</li>
+                <li>postpone,</li>
+                <li>switch to a safer nearby route.</li>
+              </ul>
+              <p>Always update participants on the NWU event page.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAFETY & PHOTOS -->
+      <h3 id="faq-org-safety">{% trans "Safety, Respect & Photos" %}</h3>
+      <div class="accordion mb-4" id="accordionOrganizerSafety">
+
+        <!-- Q4 PHOTOS -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="os1-h">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#os1" aria-expanded="true" aria-controls="os1">
+              {% trans "What if someone doesn’t want to be in photos?" %}
+            </button>
+          </h2>
+          <div id="os1" class="accordion-collapse collapse show" aria-labelledby="os1-h" data-bs-parent="#accordionOrganizerSafety">
+            <div class="accordion-body">
+              <p>You must honor their request — always.</p>
+              <ul>
+                <li>Even with signed consent, some may opt out <em>for that event</em>.</li>
+                <li>Ask before the walk: <em>"Does anyone prefer not to be in photos today?"</em></li>
+                <li>If someone objects → do <strong>not</strong> include them.</li>
+                <li>When unsure, ask before posting photos.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q5 INJURY -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="os2-h">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#os2" aria-expanded="false" aria-controls="os2">
+              {% trans "What should I do if someone gets injured or feels unwell?" %}
+            </button>
+          </h2>
+          <div id="os2" class="accordion-collapse collapse" aria-labelledby="os2-h" data-bs-parent="#accordionOrganizerSafety">
+            <div class="accordion-body">
+              <ul>
+                <li>Stop the group.</li>
+                <li>Call emergency services if needed.</li>
+                <li>Stay with the injured/unwell person until help arrives.</li>
+                <li>Never send the rest of the group back without a leader.</li>
+              </ul>
+              <p>Afterward, notify NWU via the CONTACT US page.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q6 DISRESPECT -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="os3-h">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#os3" aria-expanded="false" aria-controls="os3">
+              {% trans "What if a participant behaves disrespectfully?" %}
+            </button>
+          </h2>
+          <div id="os3" class="accordion-collapse collapse" aria-labelledby="os3-h" data-bs-parent="#accordionOrganizerSafety">
+            <div class="accordion-body">
+              <p>You may:</p>
+              <ul>
+                <li>give a calm verbal warning,</li>
+                <li>document the incident,</li>
+                <li>report it to NWU via CONTACT US.</li>
+              </ul>
+              <p>If safety is threatened, you may ask the person to leave.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GROUP DYNAMICS -->
+      <h3 id="faq-org-group">{% trans "Group Dynamics & Growth" %}</h3>
+      <div class="accordion mb-4" id="accordionOrganizerGroup">
+
+        <!-- Q7 MIXED ABILITIES -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="og1-h">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#og1" aria-expanded="true" aria-controls="og1">
+              {% trans "How do I handle slow walkers or mixed ability levels?" %}
+            </button>
+          </h2>
+          <div id="og1" class="accordion-collapse collapse show" aria-labelledby="og1-h" data-bs-parent="#accordionOrganizerGroup">
+            <div class="accordion-body">
+              <p>The goal is for everyone to feel welcome and supported.</p>
+              <ul>
+                <li>Keep the pace conversational.</li>
+                <li>Ask faster walkers to regroup regularly.</li>
+                <li>Use a sweep to support slower walkers.</li>
+                <li>Choose routes with natural regroup points.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q8 GROUP GROWTH -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="og2-h">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#og2" aria-expanded="false" aria-controls="og2">
+              {% trans "How do I grow my walking group?" %}
+            </button>
+          </h2>
+          <div id="og2" class="accordion-collapse collapse" aria-labelledby="og2-h" data-bs-parent="#accordionOrganizerGroup">
+            <div class="accordion-body">
+              <ul>
+                <li>Post friendly follow-up summaries.</li>
+                <li>Share photos (only with consent).</li>
+                <li>Engage warmly in comments.</li>
+                <li>Encourage participants to invite friends.</li>
+                <li>Be consistent — warmth + reliability = growth.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POLICIES & FEES -->
+      <h3 id="faq-org-policy">{% trans "Policies & Fees" %}</h3>
+      <div class="accordion mb-4" id="accordionOrganizerPolicy">
+
+        <!-- Q9 FEES -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="op1-h">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#op1" aria-expanded="true" aria-controls="op1">
+              {% trans "Can I charge a fee for my event?" %}
+            </button>
+          </h2>
+          <div id="op1" class="accordion-collapse collapse show" aria-labelledby="op1-h" data-bs-parent="#accordionOrganizerPolicy">
+            <div class="accordion-body">
+              <p><strong> Donations are allowed only if they are clearly stated as optional.</strong></p>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Q10 FOLLOW-UP -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="op2-h">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#op2" aria-expanded="false" aria-controls="op2">
+              {% trans "What should my follow-up message look like?" %}
+            </button>
+          </h2>
+          <div id="op2" class="accordion-collapse collapse" aria-labelledby="op2-h" data-bs-parent="#accordionOrganizerPolicy">
+            <div class="accordion-body">
+              <ul>
+                <li>thank participants,</li>
+                <li>share a warm summary,</li>
+                <li>add photos (with permission),</li>
+                <li>mention the next walk.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HELP -->
+      <h3 id="faq-org-help">{% trans "Help & Support" %}</h3>
+      <div class="accordion mb-4" id="accordionOrganizerHelp">
+
+        <!-- Q11 HELP -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="oh1-h">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#oh1" aria-expanded="true" aria-controls="oh1">
+              {% trans "What if I need help or advice?" %}
+            </button>
+          </h2>
+          <div id="oh1" class="accordion-collapse collapse show" aria-labelledby="oh1-h" data-bs-parent="#accordionOrganizerHelp">
+            <div class="accordion-body">
+              <p>Organizers are never alone.</p>
+              <ul>
+                <li>Contact NWU leadership anytime via <strong>CONTACT US</strong>.</li>
+                <li>We help with safety, planning, group dynamics, and more.</li>
+                <li>If you're unsure how to handle a situation, reach out — we are here to support you.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <a href="{% url 'core:home_nwu' %}" class="btn btn-outline-secondary btn-sm">« {% trans "Back to Home" %}</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .accordion-button:focus { box-shadow: none; }
+  html { scroll-behavior: smooth; }
+</style>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'global/base.html' %}
+{% load i18n markdown_deux_tags static %}
+
+{% block title %}{% trans "Nordic Walk United Foundation" %}{% endblock %}
+
+{% block content %}
+
+
+
+    <div class="container without-background" id="flatpage">
+        <div id="value" class="row">
+            <div class="col-md-12">
+                <h1>{% trans "Nordic Walking United (NWU)" %}</h1>
+                  {% markdown trusted %}
+<p><strong>Nordic Walking United (NWU)</strong> is a global non-profit movement that brings people together through the simple, powerful act of walking with purpose. We believe that every step outdoors can strengthen not only our bodies, but also our communities and our planet.</p>
+<p>Our mission is to inspire people everywhere to discover the joy and benefits of Nordic Walking — to move, connect, and make a difference.</p>
+
+  <h2>At NWU, we:</h2>
+  <ul>
+    <li>Make it easy for anyone, anywhere, to find, join, and learn Nordic Walking.</li>
+    <li>Empower people to create free and welcoming Nordic Walking groups in their own neighborhoods and cities.</li>
+    <li>Offer free training, educational materials, and resources to help new leaders organize local walks and events.</li>
+    <li>Help promote and grow newly formed groups so that more people can experience the joy of walking together.</li>
+    <li>Encourage community spirit through “give-back” events — from Big Cleanup Walks and local volunteer projects to fundraisers and educational activities.</li>
+    <li>Build bridges between cultures, generations, and communities through shared outdoor experiences.</li>
+    <li>Celebrate healthy living by highlighting inspiring role models and nurturing a sense of purpose — where every step we take supports well-being, connection, and a healthier planet for all.</li>
+  </ul>
+
+  <p><strong>Nordic Walking United</strong> is more than a non-profit organization — it’s a movement of people united by shared values and a love for walking. Anyone who believes in our mission can join, lead a walk, or organize an event in the NWU spirit. Together, we walk for health, for community, and for the world we share.</p>
+
+
+## Foundation details
+
+**Official name:** NORDIC WALKING UNITED INC.
+
+**Entity type:** Nonprofit Corporation
+
+**Identification Number:** 001619496
+
+**Date of Organization in Massachusetts, USA:** 11-18-2022
+
+
+[Governing document is available here]({% url 'core:foundation-governing-document' %}).
+
+## Who owns Nordic Walking United?
+
+The Nordic Walking United Inc and **the community**.
+
+## How can I financially support Nordic Walking United?
+
+There are several ways to financially support Nordic Walking United:
+
+- You can support us through monthly donations — just click the Donate button.
+- You can also sponsor an NWU event by contacting local organizers through the Contact Us page.
+
+## More information
+
+If you want to learn more about Nordic Walking United or have a question about our
+non-profit organization, you can contact us by writing to
+<a class="nav-link" href="{% url 'contact:contact_form' %}">{% trans "Contact Us" %}</a>
+
+                  {% endmarkdown %}
+              </div>
+          </div>
+    </div>
+{% endblock %}

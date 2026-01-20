@@ -1,0 +1,97 @@
+{% extends 'global/base.html' %}
+{% load i18n rev static %}
+{% load country_flags %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static_rev 'js/global.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<style>
+.row-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em;
+}
+
+.event {
+    border: 1px solid #DEE4ED;
+    padding: 1em;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.event__preview--title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 0.5em;
+}
+</style>
+
+<div>
+  <h6><strong>Nordic Walking Groups: {{ nwcount }}</strong></h6>
+</div>
+
+<form method="get" class="mb-3">
+  <label for="country">Country:</label>
+  <select id="country" name="country" onchange="this.form.submit()">
+    <option value="">-- All countries --</option>
+    {% for country in countries %}
+      <option value="{{ country }}" {% if country == selected_country %}selected{% endif %}>
+        {{ country }}
+      </option>
+    {% endfor %}
+  </select>
+
+  {% if selected_country %}
+    <label for="city">City:</label>
+    <select id="city" name="city" onchange="this.form.submit()">
+      <option value="">-- All cities --</option>
+      {% for city in cities %}
+        <option value="{{ city }}" {% if city == selected_city %}selected{% endif %}>
+          {{ city }}
+        </option>
+      {% endfor %}
+    </select>
+  {% endif %}
+  {% if selected_country or selected_city %}
+    <a href="{% url 'core:home_nwu' %}" class="btn btn-outline-secondary btn-sm">
+    ✕ Clear filters
+  </a>
+{% endif %}
+
+</form>
+
+<div class="upcoming-events">
+  <div class="row-container">
+
+
+    {% for nwgroup in nwgroup_page_obj %}
+      <div class="event">
+        <h6 class="event__preview--title">
+          <a href="{% url 'core:group_events' nwgroup.id %}">
+    {{ nwgroup.nwgroup }}
+</a>
+        </h6>
+        <p>{{ nwgroup.country }} {{ nwgroup.country|flag_emoji }} {{ nwgroup.city }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% if not selected_country and not selected_city %}
+  <div class="pagination">
+    {% if nwgroup_page_obj.has_previous %}
+      <a href="?page={{ nwgroup_page_obj.previous_page_number }}">« Prev</a>
+    {% endif %}
+
+    <span>Page {{ nwgroup_page_obj.number }} of {{ nwgroup_page_obj.paginator.num_pages }}</span>
+
+    {% if nwgroup_page_obj.has_next %}
+      <a href="?page={{ nwgroup_page_obj.next_page_number }}">Next »</a>
+    {% endif %}
+  </div>
+{% endif %}
+
+
+{% endblock %}

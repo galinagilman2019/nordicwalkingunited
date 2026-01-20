@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<p>{% trans "Hi there!" %}</p>
+
+<p>{% blocktrans with event=event.name %}Congrats! You can now manage events for  group !{% endblocktrans %}</p>
+
+<p>The website address is https://nwu.pythonanywhere.com/</p>
+
+<p>
+{% blocktrans trimmed %}
+  To manage it, login here:<br />
+  https://nwu.pythonanywhere.com//admin/
+{% endblocktrans %}
+</p>
+
+<p>
+{% blocktrans trimmed with email=user.email %}
+  Email: {{ email }}<br />
+  Use your existing password. By default it is "organizer"
+{% endblocktrans %}
+</p>
+
+<p>{% trans "Here you can find instructions on editing website: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX" %}</p>
+
+
+
+
+<p>
+  Nordic Walking United
+</p>

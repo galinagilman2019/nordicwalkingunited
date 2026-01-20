@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<a href="{% url 'core:eventnwu' event.uuuid %}">
+    <div class="col-md-4 event"{% if event.photo %} style="background-image: url({{ event.photo.url }})"{% endif %}>
+        <div class="overlay">
+            <h6 class="nwgroup">{{ event.nwgroup}}</h6>
+            <h6 class="name">{{ event.name}}</h6>
+            <h6 class="city">{{ event.city}}</h6>
+            <span class="date">{{ event.date }}</span>
+            {% if event.photo_credit %}<p class="credit" rel="{{ event.photo_link }}">{% trans "Photo credit:" %} {{ event.photo_credit }} (<span rel="https://creativecommons.org/licenses/by-nc-sa/2.0/">CC</span>)</p>{% endif %}
+        </div>
+    </div>
+</a>

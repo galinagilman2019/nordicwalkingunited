@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<p>{% trans "Hello there," %}</p>
+
+<p>
+{% blocktrans trimmed with city=application.city %}
+  Thank you so much for taking the time to submit an application to  organize the Nordic Walk United group.
+
+{% endblocktrans %}
+</p>
+
+<p>
+{% blocktrans trimmed %}
+  We reviewed your application and we think that you need to do a little bit more planning before we can give you a positive answer.
+
+{% endblocktrans %}
+</p>
+
+<p>
+  {% trans "When you have more things planned (like potential date, venue or sponsors), get back to us by filling out the form again." %}
+</p>
+
+<p>
+{% blocktrans trimmed %}
+  Have a lovely day and thank you again for reaching out to us!<br />
+  Nordic Walk United team
+{% endblocktrans %}
+</p>

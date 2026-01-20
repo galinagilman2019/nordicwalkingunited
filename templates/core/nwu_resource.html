@@ -1,0 +1,90 @@
+{% extends "global/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4 nwu-tutorial">
+
+  <!-- Print Button -->
+  <div class="text-end mb-3">
+    <button onclick="window.print()" class="btn btn-outline-secondary btn-sm">
+      🖨️ {% trans "Print or Save as PDF" %}
+    </button>
+  </div>
+
+  <div class="row">
+    <!-- Left side: Table of Contents -->
+    <div class="col-md-3 mb-4">
+      <div class="tutorial-toc p-3 border rounded bg-light">
+        <h5 class="mb-3 text-success">{% trans "Table of Contents" %}</h5>
+        <ul class="list-unstyled">
+          {% for item in toc %}
+            <li class="mb-2 {% if item.slug == manual.slug %}fw-bold text-primary{% endif %}">
+              <a href="{% url 'core:nwu_resource_detail' item.slug %}" class="text-decoration-none">
+                {{ item.table_title|default:item.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right side: Manual content -->
+    <div class="col-md-9">
+      <h2 class="mb-3">{{ manual.title }}</h2>
+      <div class="manual-body">
+        {{ manual.body|safe }}
+      </div>
+
+      <!-- Navigation: Previous / Next
+      <div class="tutorial-nav d-flex justify-content-between align-items-center mt-5">
+        <a href="{% url 'core:nwu_resources' %}" class="btn btn-outline-secondary btn-sm">
+          « {% trans "Back to Tutorials" %}
+        </a>
+       -->
+        {% if next_manual %}
+          <a href="{% url 'core:nwu_resource_detail' next_manual.slug %}" class="btn btn-primary btn-sm">
+            {% trans "Next:" %} {{ next_manual.title }} »
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .tutorial-toc ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .tutorial-toc li a {
+    color: #004d40;
+    text-decoration: none;
+  }
+  .tutorial-toc li a:hover {
+    text-decoration: underline;
+  }
+  .manual-body img {
+    max-width: 700px;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+    border-radius: 8px;
+  }
+  .tutorial-nav a {
+    border-radius: 5px;
+    padding: 0.4rem 0.8rem;
+  }
+  @media print {
+    .tutorial-toc, .tutorial-nav, .btn, nav, header, footer {
+      display: none !important;
+    }
+    body {
+      font-size: 12pt;
+      color: #000;
+    }
+  }
+</style>
+{% endblock %}
+

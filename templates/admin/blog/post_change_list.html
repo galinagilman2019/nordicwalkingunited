@@ -1,0 +1,33 @@
+{# templates/admin/blog/post_change_list.html #}
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+  {% if blog_stats %}
+    <div class="card mb-3" style="padding: 1rem;">
+      <h2 style="margin-top: 0;">Blog overview</h2>
+      <p>
+        <strong>Total posts:</strong> {{ blog_stats.total_posts }}<br>
+        <strong>Total comments:</strong> {{ blog_stats.total_comments }}<br>
+        <strong>Pending comments:</strong> {{ blog_stats.pending_comments }}
+      </p>
+
+      {% if blog_stats.latest_comments %}
+        <h3 style="font-size: 1.1rem; margin-top: 1rem;">Latest comments</h3>
+        <ul>
+          {% for c in blog_stats.latest_comments %}
+            <li>
+              <strong>{{ c.name }}</strong> on
+              <em>{{ c.post.title }}</em>
+              ({{ c.created_at|date:"M j, Y H:i" }})
+              {% if not c.is_approved %}
+                <span style="color: #d9534f;">[pending]</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {{ block.super }}
+{% endblock %}

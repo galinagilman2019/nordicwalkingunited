@@ -1,0 +1,32 @@
+{% extends 'global/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container organize">
+    <div class="row">
+        <div class="col-md-12">
+            {% include 'includes/_organize-progress.html' with active_step=7 %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <h1>🎉 {% trans "You submitted the application to organize new NWU group!" %} 🎉</h1>
+
+                <p>{% trans "Thank you so much for taking the time to submit your application to add new NWU group and first event to the group in your city." %}</p>
+
+                <p class="tight-bottom">{% trans "In the meantime, if you want to start planning your workshop, here are few things that can help you:" %}</p>
+
+                <ul class="bulleted">
+                    <li>
+                        <span>{% blocktrans %}Read our <a href="https://organize.djangogirls.org/">Organizer’s Manual</a>{% endblocktrans %}</span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

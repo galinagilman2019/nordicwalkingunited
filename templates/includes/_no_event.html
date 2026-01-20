@@ -1,0 +1,26 @@
+{% load i18n %}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>{% trans "Don't see an event in your city?" %}</h2>
+    </div>
+</div>
+
+
+
+<div class="row centered">
+    <div class="col-md-12">
+        <h4>{% trans "Bring Nordic Walking United to your city!" %}</h4>
+        <p>
+            {% trans "Everyone can organize their own Nordic Walking Group and share it with their community." %}
+        </p>
+
+        <a href="{% url 'core:nwu_resources' %}">Find out more</a>
+        <p><a class="btn btn-primary btn-lg shadow"
+     href="{% url 'organize:prerequisites' %}">
+
+    {% trans "Organize a new Nordic Walking Group" %}
+
+  </a></p>
+    </div>
+</div>

@@ -1,0 +1,462 @@
+{% extends "global/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "NWU • Frequently Asked Questions" %}{% endblock %}
+
+{% block content %}
+
+
+<div class="container my-5">
+  <div class="row">
+
+    <!-- ===================== ON THIS PAGE (SIDEBAR) ===================== -->
+    <aside class="col-lg-3 mb-4">
+      <div class="p-3 border rounded sticky-top" style="top: 90px;">
+        <strong class="d-block mb-2">On this page</strong>
+        <ul class="list-unstyled mb-0">
+          <li><a href="#general">GENERAL QUESTIONS</a></li>
+          <li><a href="#finding-walks">Participation &amp; Events</a></li>
+          <li><a href="#organizing">Organizing a Group</a></li>
+          <li><a href="#website-account">Website &amp; Account</a></li>
+          <li><a href="#values">Values &amp; Community</a></li>
+          <li><a href="#support">Help &amp; Support</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- ===================== FAQ CONTENT ===================== -->
+    <main class="col-lg-9">
+
+
+
+
+
+
+
+<section id="faq" class="container my-5">
+  <div class="text-center mb-4">
+    <h2 class="mb-2">Frequently Asked Questions (FAQ)</h2>
+
+  </div>
+
+  <div class="accordion" id="faqAccordion">
+
+    <!-- ===================== GENERAL QUESTIONS ===================== -->
+
+    <h4 id="general">GENERAL QUESTIONS</h4>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading1">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+          What is Nordic Walking United (NWU)?
+        </button>
+      </h2>
+      <div id="faqCollapse1" class="accordion-collapse collapse" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Nordic Walking United is a global, community-driven initiative that brings people together through Nordic Walking, movement, nature, wellness, and connection.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading2">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+          Who can join NWU?
+        </button>
+      </h2>
+      <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <strong>Everyone!</strong><br>
+          All ages, all fitness levels, beginners and experienced walkers alike are welcome. You don’t need prior experience — just curiosity and comfortable shoes.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading3">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+          Do I need Nordic Walking poles?
+        </button>
+      </h2>
+      <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Poles are recommended, but not always required.<br><br>
+          Some groups are happy to provide poles for beginners and can help you get started.
+          Please check the event details, or feel free to ask the organizer by registering for the event and posting your question in the comments.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading4">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+          Are NWU events free?
+        </button>
+      </h2>
+      <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Yes, NWU events are free to join.<br><br>
+          Some events may include optional donations to support your local Nordic Walking group and community.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading5">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+          Where do NWU walks take place?
+        </button>
+      </h2>
+      <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          NWU walks happen all over the world — in parks, trails, beaches, city paths, and nature preserves.<br><br>
+          Visit the <strong>Events</strong> page to see upcoming walks by location and date.
+          You can also browse the <strong>Nordic Walking Groups</strong> section or <strong>MAP</strong> section to discover local and international NWU communities.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== FINDING WALKS & GROUPS ===================== -->
+    <h4 id="finding-walks">FINDING WALKS &amp; GROUPS</h4>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading6">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6">
+          How do I find a walk near me?
+        </button>
+      </h2>
+      <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+
+           <p>
+  Visit the <strong><a href="/en/events/">Events</a></strong> page or explore the
+  <strong><a href="{% url 'core:events_map' %}">Map</a></strong>
+  to discover upcoming walks near you.
+</p>
+          <p>
+  Browse <strong><a href="{% url 'core:home_nwu' %}">Nordic Walking Groups</a></strong>
+  to find welcoming communities around the world.
+</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading7">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse7" aria-expanded="false" aria-controls="faqCollapse7">
+          What if there is no group near me?
+        </button>
+      </h2>
+      <div id="faqCollapse7" class="accordion-collapse collapse" aria-labelledby="faqHeading7" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          You can join a walk while traveling, or start your own group using the
+          <strong>“Organize a Nordic Walking Group”</strong> button on our homepage.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== ORGANIZING A GROUP ===================== -->
+    <h4 id="organizing">ORGANIZING A GROUP</h4>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading8">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse8" aria-expanded="false" aria-controls="faqCollapse8">
+          Who can organize a group?
+        </button>
+      </h2>
+      <div id="faqCollapse8" class="accordion-collapse collapse" aria-labelledby="faqHeading8" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Anyone who loves people, enjoys being active, and brings others together through Nordic Walking —
+          while supporting NWU values of inclusivity, respect, and community.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading9">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse9" aria-expanded="false" aria-controls="faqCollapse9">
+          How do I add my group to the website?
+        </button>
+      </h2>
+      <div id="faqCollapse9" class="accordion-collapse collapse" aria-labelledby="faqHeading9" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Simply click the <strong>“Organize a Nordic Walking Group”</strong> button on the main page and follow the steps.<br><br>
+          Once approved, your group and events will appear on the NWU website for walkers around the world to find.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading10">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse10" aria-expanded="false" aria-controls="faqCollapse10">
+          Is there guidance for organizers?
+        </button>
+      </h2>
+      <div id="faqCollapse10" class="accordion-collapse collapse" aria-labelledby="faqHeading10" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <strong>Yes!</strong><br>
+          We provide step-by-step <strong>TUTORIAL</strong> and <strong>GUIDELINES</strong> in the <strong>RESOURCES</strong> tab, including:
+          <ul class="mt-2 mb-0">
+            <li>How to create events</li>
+            <li>How to manage your group</li>
+            <li>Best practices for welcoming participants</li>
+            <li>Safety and communication tips</li>
+            <li>NWU guidelines</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading11">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse11" aria-expanded="false" aria-controls="faqCollapse11">
+          Can I organize walks in any country?
+        </button>
+      </h2>
+      <div id="faqCollapse11" class="accordion-collapse collapse" aria-labelledby="faqHeading11" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Absolutely. NWU is a global community.<br><br>
+          Groups are welcome in any country, city, or region, as long as they follow NWU principles and guidelines.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== WEBSITE & ACCOUNT ===================== -->
+    <h4 id="website-account">WEBSITE &amp; ACCOUNT</h4>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading12">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse12" aria-expanded="false" aria-controls="faqCollapse12">
+          Do I need an account to join a walk?
+        </button>
+      </h2>
+      <div id="faqCollapse12" class="accordion-collapse collapse" aria-labelledby="faqHeading12" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Yes. A quick registration helps our event organizers prepare and keep everyone safe.
+          Creating an account allows you to register for events, stay informed, and easily connect with the NWU community.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading13">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse13" aria-expanded="false" aria-controls="faqCollapse13">
+          Where can I get help with registration?
+        </button>
+      </h2>
+      <div id="faqCollapse13" class="accordion-collapse collapse" aria-labelledby="faqHeading13" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Please visit the <strong>Resources</strong> tab for tutorials and instructions.<br><br>
+          If you still have questions, use the <strong>Contact Us</strong> page — we read every message.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== VALUES & COMMUNITY ===================== -->
+    <h4 id="values">VALUES &amp; COMMUNITY</h4>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading14">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse14" aria-expanded="false" aria-controls="faqCollapse14">
+          What makes NWU different?
+        </button>
+      </h2>
+      <div id="faqCollapse14" class="accordion-collapse collapse" aria-labelledby="faqHeading14" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Nordic Walking United is built on:
+          <ul class="mt-2">
+            <li>Movement with joy, not pressure</li>
+            <li>Nature as a shared space to care for</li>
+            <li>Kindness, inclusivity, and respect</li>
+            <li>Community before competition</li>
+            <li>A focus on the wellbeing of every NWU member</li>
+          </ul>
+          We walk together — across borders, languages, and generations.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading15">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse15" aria-expanded="false" aria-controls="faqCollapse15">
+          How can I support NWU?
+        </button>
+      </h2>
+      <div id="faqCollapse15" class="accordion-collapse collapse" aria-labelledby="faqHeading15" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          The best support is walking with us, inviting others, organizing groups, and spreading kindness and connection.<br><br>
+          Optional donations are always welcome and help keep NWU operational, accessible, and growing — but participation is what truly matters.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== STILL HAVE QUESTIONS ===================== -->
+    <h4 id="support">STILL HAVE QUESTIONS?</h4>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeading16">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse16" aria-expanded="false" aria-controls="faqCollapse16">
+          Still have questions?
+        </button>
+      </h2>
+      <div id="faqCollapse16" class="accordion-collapse collapse" aria-labelledby="faqHeading16" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          We’re here for you.<br><br>
+          <ul class="mb-0">
+            {%comment%}<li>Visit the <strong>Resources</strong> tab for tutorials.</li>
+            <li>Use the <strong>Contact Us</strong> page to reach out.</li>
+            <li>Or take your first step by joining a walk.</li>
+            {%endcomment%}
+            {% trans "Visit the" %} <a href="{% url 'contact:contact_form' %}">{% trans "Contact Us" %}</a> {% trans "page or apply through the" %} <a href="{% url 'core:nwu_resources' %}">{% trans "Tutorials" %}</a>.
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+    <div class="text-center mb-4">
+
+    <p class="text-muted mb-0">
+      With joy in every step,<br>
+      Nordic Walking United Team 💚
+    </p>
+  </div>
+
+
+</section>
+
+
+
+    </main>
+
+  </div>
+</div>
+{%comment%}
+<div class="container my-5">
+  <h1 class="mb-3">{% trans "Frequently Asked Questions" %}</h1>
+  <p class="text-muted mb-4">
+    {% trans "Find quick answers about Nordic Walking United: who we are, how to join, equipment, organizing events, and more." %}
+  </p>
+
+  <div class="row">
+    <div class="col-md-3 mb-4">
+      <div class="p-3 border rounded bg-light">
+        <h5 class="mb-3">{% trans "On this page" %}</h5>
+        <ul class="list-unstyled small mb-0">
+          <li><a href="#faq-general" class="text-decoration-none">{% trans "General" %}</a></li>
+          <li><a href="#faq-participation" class="text-decoration-none">{% trans "Participation & Events" %}</a></li>
+          <li><a href="#faq-mission" class="text-decoration-none">{% trans "Mission & Impact" %}</a></li>
+          <li><a href="#faq-volunteer" class="text-decoration-none">{% trans "Volunteering & Support" %}</a></li>
+          <li><a href="#faq-organization" class="text-decoration-none">{% trans "Organization" %}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <!-- GENERAL -->
+      <h3 id="faq-general" class="mt-0">{% trans "General" %}</h3>
+      <div class="accordion mb-4" id="accordionGeneral">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="g1-h">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#g1" aria-expanded="true" aria-controls="g1">
+              {% trans "What is Nordic Walking United?" %}
+            </button>
+          </h2>
+          <div id="g1" class="accordion-collapse collapse show" aria-labelledby="g1-h" data-bs-parent="#accordionGeneral">
+            <div class="accordion-body">
+              {% trans "Nordic Walking United (NWU) is a 501(c)(3) nonprofit that promotes health, community, and environmental care through Nordic walking groups and events worldwide." %}
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="g2-h">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#g2" aria-expanded="false" aria-controls="g2">
+              {% trans "Who can join Nordic Walking United?" %}
+            </button>
+          </h2>
+          <div id="g2" class="accordion-collapse collapse" aria-labelledby="g2-h" data-bs-parent="#accordionGeneral">
+            <div class="accordion-body">
+              {% trans "Everyone is welcome—any age, background, or fitness level. No experience is required." %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PARTICIPATION & EVENTS -->
+      <h3 id="faq-participation">{% trans "Participation & Events" %}</h3>
+      <div class="accordion mb-4" id="accordionParticipation">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="p1-h">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#p1" aria-expanded="true" aria-controls="p1">
+              {% trans "How do I find a group or event near me?" %}
+            </button>
+          </h2>
+          <div id="p1" class="accordion-collapse collapse show" aria-labelledby="p1-h" data-bs-parent="#accordionParticipation">
+            <div class="accordion-body">
+              {% trans "Visit our" %} <a href="/en/events/">{% trans "Events" %}</a> {% trans "page to explore active groups and upcoming walks by city and country." %}
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="p3-h">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#p3" aria-expanded="false" aria-controls="p3">
+              {% trans "How do I start my own NWU group?" %}
+            </button>
+          </h2>
+          <div id="p3" class="accordion-collapse collapse" aria-labelledby="p3-h" data-bs-parent="#accordionParticipation">
+            <div class="accordion-body">
+              {% trans "Use our" %} <a href="{% url 'core:nwu_resources' %}">{% trans "Tutorials" %}</a> {% trans "to apply and set up your group, then create your first event." %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VOLUNTEERING -->
+      <h3 id="faq-volunteer">{% trans "Volunteering & Support" %}</h3>
+      <div class="accordion mb-4" id="accordionVolunteer">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="v1-h">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#v1" aria-expanded="true" aria-controls="v1">
+              {% trans "How can I volunteer or become an organizer?" %}
+            </button>
+          </h2>
+          <div id="v1" class="accordion-collapse collapse show" aria-labelledby="v1-h" data-bs-parent="#accordionVolunteer">
+            <div class="accordion-body">
+              {% trans "Reach out via our" %} <a href="{% url 'contact:contact_form' %}">{% trans "Contact Us" %}</a> {% trans "page or explore our" %} <a href="{% url 'core:nwu_resources' %}">{% trans "Tutorials" %}</a>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <a href="{% url 'core:index' %}" class="btn btn-outline-secondary btn-sm">« {% trans "Back to Home" %}</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+{%endcomment%}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .accordion-button:focus { box-shadow: none; }
+  html { scroll-behavior: smooth; }
+  /* FAQ "On this page" sidebar */
+aside a {
+  text-decoration: none;
+  color: #2a7b5f; /* NWU-friendly green */
+}
+
+aside a:hover {
+  text-decoration: underline;
+}
+
+aside ul li {
+  margin-bottom: 0.4rem;
+}
+
+</style>
+{% endblock %}

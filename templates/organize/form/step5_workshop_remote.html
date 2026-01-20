@@ -1,0 +1,197 @@
+{% extends 'global/base.html' %}
+{% load i18n hashed_static %}
+
+{% block head %}
+    {{ wizard.form.media }}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% hashed_static 'vendor/select2/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% hashed_static 'vendor/select2-bootstrap-theme/select2-bootstrap.min.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="{% hashed_static 'js/organize.js' %}"></script>
+    <script src="{% hashed_static 'vendor/select2/js/select2.min.js' %}"></script>
+{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% hashed_static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% hashed_static 'css/event.css' %}">
+    <link rel="stylesheet" href="{% hashed_static 'css/global.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container organize">
+
+    <div class="row">
+        <div class="col-md-12">
+            {% include 'includes/_organize-progress.html' with active_step=6 %}
+        </div>
+    </div>
+
+    <div class="row workshop">
+        <div class="col-md-12">
+            <div class="panel">
+                <h1>{% trans "Tell us all about your Nordic Walking Group and first event!" %}</h1>
+
+                <form novalidate data-required-form action="" method="post">{% csrf_token %}
+                    {{ wizard.management_form }}
+
+                    {% if wizard.form.non_field_errors %}
+                        <ul class="error-list">
+                            {% for error in wizard.form.non_field_errors %}
+                                <li class="error">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    <fieldset class="form-section">
+                        <legend class="form-section-heading">{% trans "Where?" %}</legend>
+                        <p class="form-section-subhead">{% trans "Define the name of the group and the city do you want to organize an event?" %}</p>
+
+
+                        <ul class="row">
+                            <li class="col-sm-12 col-md-4">
+                                <label for="{{ wizard.form.nwgroup.id_for_label }}"
+                                       class="compact-label{% if form.nwgroup.field.required %} required{% endif %}">{% trans "NWGroup" %}</label>
+                                {{ wizard.form.nwgroup }}
+                                {% if wizard.form.nwgroup.errors %}
+                                    <ul class="error-list">
+                                        {% for error in wizard.form.nwgroup.errors %}
+                                            <li class="error">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+
+                        </ul>
+
+                        <ul class="row">
+                            <li class="col-sm-12 col-md-4">
+                                <label for="{{ wizard.form.city.id_for_label }}"
+                                       class="compact-label{% if form.city.field.required %} required{% endif %}">{% trans "City" %}</label>
+                                {{ wizard.form.city }}
+                                {% if wizard.form.city.errors %}
+                                    <ul class="error-list">
+                                        {% for error in wizard.form.city.errors %}
+                                            <li class="error">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                            <li class="col-sm-12 col-md-4">
+                                <label for="{{ wizard.form.country.id_for_label }}"
+                                       class="compact-label{% if form.country.field.required %} required{% endif %}">{% trans "Country" %}</label>
+                                {{ wizard.form.country }}
+                                {% if wizard.form.country.errors %}
+                                    <ul class="error-list">
+                                        {% for error in wizard.form.country.errors %}
+                                            <li class="error">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <script type="text/javascript">
+                        $('#{{ wizard.form.country.id_for_label }}').select2({
+                            theme: "bootstrap",
+                            placeholder: '{% trans "Choose country" %}'
+                        });
+                    </script>
+
+                    <fieldset class="form-section">
+                        <legend class="form-section-heading">{% trans "When?" %}</legend>
+                        <p class="form-section-subhead">{% trans "There should be <b>at least 3 months</b> between now and your event's date, and <b>6 months</b> after the previous workshop in that region. Please enter your date in dd/mm/yyyy format." %}</p>
+
+                        <ul class="row">
+                            <li class="col-sm-12 col-md-4">
+                                <label for="{{ wizard.form.date.id_for_label }}" class="compact-label{% if form.date.field.required %} required{% endif %}">{% trans "Date of your event" %}</label>
+                                {{ wizard.form.date }}
+                                {% if wizard.form.date.errors %}
+                                    <ul class="error-list">
+                                        {% for error in wizard.form.date.errors %}
+                                            <li class="error">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </fieldset>
+
+                    <section class="form-section" id="venue_details">
+                        <label class="form-section-heading{% if form.venue.field.required %} required{% endif %}">{% trans "Do you have a venue in mind?" %}</label>
+                        <p class="form-section-subhead">{% trans "Tell us about your ideas on where to host the event in your city." %}</p>
+
+                        <ul class="row">
+                            <li class="col-sm-12 col-md-9">
+                                {{ wizard.form.venue }}
+                                {% if wizard.form.venue.errors %}
+                                    <ul class="error-list">
+                                        {% for error in wizard.form.venue.errors %}
+                                            <li class="error">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="form-section">
+                        <label class="form-section-heading{% if form.sponsorship.field.required %} required{% endif %}">{% trans "Do you already know which companies you will approach for sponsorship?" %}</label>
+                        <p class="form-section-subhead">{% trans "It doesn’t need to be very specific yet, but we would love to see your ideas." %}</p>
+
+                        <ul class="row">
+                            <li class="col-sm-12 col-md-9">
+                                {{ wizard.form.sponsorship }}
+                                {% if wizard.form.sponsorship.errors %}
+                                    <ul class="error-list">
+                                        {% for error in wizard.form.sponsorship.errors %}
+                                            <li class="error">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </section>
+
+
+                    <section class="form-section">
+                        <label class="form-section-heading{% if form.additional.field.required %} required{% endif %}">{% trans "Any additional you may want to share with us?" %}</label>
+                        <p class="form-section-subhead">{% trans "Please provide any additional information you may want to share with us and may think may help your application." %}</p>
+
+                        <ul class="row">
+                            <li class="col-sm-12 col-md-9">
+                                {{ wizard.form.additional }}
+                                {% if wizard.form.additional.errors %}
+                                    <ul class="error-list">
+                                        {% for error in wizard.form.additional.errors %}
+                                            <li class="error">{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </section>
+
+                   <section class="form-section">
+                        <ul class="row">
+                            <li class="col-sm-12 col-md-9">
+
+                                <div id="g-recaptcha"  data-sitekey="6LenV8EqAAAAAKT0qchwylOJSbGr-sDmyK53yyk3" ></div>
+                            </li>
+                        </ul>
+                    </section>
+                    <div class="cta-wrapper">
+                        <button type="submit" class="cta">{% trans "Finish!" %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends "event/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container my-5">
+
+    <h2 class="mb-3 text-center">{% trans "Before You Register" %}</h2>
+    <p class="text-muted text-center mb-4">
+        {% trans "Please read and accept all three sections below to continue." %}
+    </p>
+
+    <!-- NAV TABS (Bootstrap-styled, but JS handled by our own script) -->
+   <ul class="nav nav-tabs mb-3" id="rulesTabs" role="tablist">
+
+    <!-- TERMS OF SERVICE FIRST -->
+    <li class="nav-item">
+        <a class="nav-link active"
+           id="terms-tab"
+           href="#terms"
+           role="tab"
+           aria-controls="terms"
+           aria-selected="true">
+            Terms of Service
+        </a>
+    </li>
+
+    <!-- PRIVACY POLICY SECOND -->
+    <li class="nav-item">
+        <a class="nav-link"
+           id="privacy-tab"
+           href="#privacy"
+           role="tab"
+           aria-controls="privacy"
+           aria-selected="false">
+            Privacy Policy
+        </a>
+    </li>
+
+    <!-- PHOTO RELEASE LAST -->
+    <li class="nav-item">
+        <a class="nav-link"
+           id="photo-tab"
+           href="#photo"
+           role="tab"
+           aria-controls="photo"
+           aria-selected="false">
+            Photo &amp; Media Release
+        </a>
+    </li>
+
+</ul>
+
+    <!-- TAB CONTENT -->
+<div class="tab-content p-3 border rounded bg-white" id="rulesTabsContent">
+
+    <!-- 1) TERMS OF SERVICE should be first + active -->
+    <div class="tab-pane fade show active"
+         id="terms"
+         role="tabpanel"
+         aria-labelledby="terms-tab">
+        {{ rules.terms|safe }}
+    </div>
+
+    <!-- 2) PRIVACY POLICY second -->
+    <div class="tab-pane fade"
+         id="privacy"
+         role="tabpanel"
+         aria-labelledby="privacy-tab">
+        {{ rules.privacy|safe }}
+    </div>
+
+    <!-- 3) PHOTO & MEDIA third -->
+    <div class="tab-pane fade"
+         id="photo"
+         role="tabpanel"
+         aria-labelledby="photo-tab">
+        {{ rules.photo|safe }}
+    </div>
+
+</div>
+
+
+
+    <!-- ACCEPT BUTTON + CHECKBOX -->
+    <form method="post" class="mt-4 text-center">
+        {% csrf_token %}
+        <div class="form-check d-inline-block mb-3">
+            <input class="form-check-input" type="checkbox"
+                   id="accept_rules" name="accept_rules" required>
+            <label class="form-check-label" for="accept_rules">
+                {% trans "I confirm that I have read and accept all three sections above." %}
+            </label>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-success btn-lg px-4">
+                {% trans "I Agree & Continue to Registration" %}
+            </button>
+        </div>
+    </form>
+
+</div>
+
+<!-- Simple JS tab switcher, independent of Bootstrap version -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var tabs = document.querySelectorAll("#rulesTabs .nav-link");
+    var panes = document.querySelectorAll("#rulesTabsContent .tab-pane");
+
+    function activateTab(targetId) {
+        // deactivate all
+        tabs.forEach(function (tab) {
+            tab.classList.remove("active");
+            tab.setAttribute("aria-selected", "false");
+        });
+        panes.forEach(function (pane) {
+            pane.classList.remove("show", "active");
+        });
+
+        // activate chosen
+        var activeTab = document.querySelector('#rulesTabs .nav-link[href="#' + targetId + '"]');
+        var activePane = document.getElementById(targetId);
+        if (activeTab) {
+            activeTab.classList.add("active");
+            activeTab.setAttribute("aria-selected", "true");
+        }
+        if (activePane) {
+            activePane.classList.add("show", "active");
+        }
+    }
+
+    tabs.forEach(function (tab) {
+        tab.addEventListener("click", function (e) {
+            e.preventDefault();
+            var targetId = this.getAttribute("href").substring(1); // remove '#'
+            activateTab(targetId);
+        });
+    });
+});
+</script>
+{% endblock %}

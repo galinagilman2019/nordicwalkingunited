@@ -1,0 +1,42 @@
+{% extends 'global/base.html' %}
+{% load i18n static %}
+
+{% block content %}
+    <div class="container organize">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <h1>{% trans "Welcome to Nordic Walk United!" %} 📬</h1>
+
+                    <p class="tight-top">{% trans "We’re delighted to welcome you as a part of Nordic Walk United family! We’ve deployed your event’s website now and an information pack with access details is on the way to your inbox right now." %}</p>
+
+                    <p class="tight-bottom">{% trans "In the information pack, you will receive access to the following:" %}</p>
+
+                    <ul class="bulleted">
+                        <li>
+                            <span>{% trans "Your brand new shiny Django Girls Kraków event website" %}</span>
+                        </li>
+                        <li>
+                            <span>{% trans "The e-mail account for your event: kraków@djangogirls.org" %}</span>
+                        </li>
+                        <li>
+                            <span>{% trans "Our private community of organizers on Slack (a group chat application)" %}</span>
+                        </li>
+                        <li>
+                            <span>{% trans "Workshop Box, a starter kit full of goodies and decorations for your event" %}</span>
+                        </li>
+                    </ul>
+
+                    <p>{% trans "We hope you’re as excited as we are about starting this adventure!" %}</p>
+
+                    <p>
+{% blocktrans %}Good luck and see you on Slack 👋<br />Django Girls Team{% endblocktrans %}</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

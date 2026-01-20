@@ -1,0 +1,260 @@
+{% extends 'global/base.html' %}
+{% load i18n rev static %}
+
+{% block head %}
+  {{ wizard.form.media }}
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static_rev 'vendor/select2/css/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static_rev 'vendor/select2-bootstrap-theme/select2-bootstrap.min.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+  {# removed: recaptcha script #}
+  <script src="{% static_rev 'vendor/select2/js/select2.min.js' %}"></script>
+  <script>
+    // Simple client-side “required” validator (no reCAPTCHA)
+    (function () {
+      function setupRequiredFormValidation(form) {
+        const submit = form.querySelector('[type="submit"]');
+
+        function isFilled(el) {
+          if (el.type === 'checkbox' || el.type === 'radio') return el.checked;
+          return (el.value || '').trim().length > 0;
+        }
+
+        function validate() {
+          // everything with HTML required attr
+          const required = Array.from(form.querySelectorAll('[required]'));
+          const allOk = required.every(isFilled);
+          if (allOk) {
+            submit.removeAttribute('disabled');
+          } else {
+            submit.setAttribute('disabled', 'disabled');
+          }
+        }
+
+        form.setAttribute('novalidate', 'novalidate');
+        form.addEventListener('input', validate, true);
+        form.addEventListener('change', validate, true);
+        validate();
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        // Select2 for country
+        const countrySel = document.getElementById('{{ wizard.form.country.id_for_label }}');
+        if (countrySel && window.jQuery && jQuery.fn.select2) {
+          jQuery(countrySel).select2({
+            theme: 'bootstrap',
+            placeholder: '{% trans "Choose country" %}'
+          });
+        }
+
+        // init validator on the wizard form
+        document.querySelectorAll('form[data-required-form]').forEach(setupRequiredFormValidation);
+
+        // previous_event step (if present on this page)
+        document.querySelectorAll('form[previous-event-form]').forEach(function (form) {
+          const submit = form.querySelector('[type="submit"]');
+          const radios = form.querySelectorAll('input[name="previous_event-has_organized_before"]');
+          function validatePrev() {
+            let checked = false;
+            radios.forEach(r => { if (r.checked) checked = true; });
+            if (checked) submit.removeAttribute('disabled');
+            else submit.setAttribute('disabled', 'disabled');
+          }
+          form.setAttribute('novalidate', 'novalidate');
+          form.addEventListener('change', validatePrev, true);
+          form.addEventListener('input', validatePrev, true);
+          validatePrev();
+        });
+
+        // add co-organizer rows (unchanged)
+        const addBtn = document.getElementById('add-form');
+        if (addBtn) {
+          addBtn.addEventListener('click', function () {
+            const tpl = document.getElementById('new-organizer-form');
+            if (!tpl) return;
+            const node = document.importNode(tpl.content, true);
+            const inputs = node.querySelectorAll('input');
+            inputs.forEach(function (el) {
+              el.name = el.name.replace('__prefix__', window.formCount);
+            });
+            document.getElementById('coorganizers').appendChild(node);
+            window.formCount++;
+            const total = document.getElementById('id_organizers-TOTAL_FORMS');
+            if (total) total.value = window.formCount;
+          });
+        }
+      });
+    })();
+  </script>
+{% endblock %}
+
+{% block content %}
+<div class="container organize">
+
+  <div class="row">
+    <div class="col-md-12">
+      {% include 'includes/_organize-progress.html' with active_step=6 %}
+    </div>
+  </div>
+
+  <div class="row workshop">
+    <div class="col-md-12">
+      <div class="panel">
+        <h1>{% trans "Tell us all about your new Nordic Walking group and your first event!" %}</h1>
+
+        <form novalidate data-required-form action="" method="post">
+          {% csrf_token %}
+          {{ wizard.management_form }}
+
+          {% if wizard.form.non_field_errors %}
+            <ul class="error-list">
+              {% for error in wizard.form.non_field_errors %}
+                <li class="error">{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          <fieldset class="form-section">
+            <legend class="form-section-heading">{% trans "NWU Group Name and Location." %}</legend>
+            <p class="form-section-subhead">
+              {% trans "What will be the name of your Nordic Walking group, and in which city and country would you like to organize your event?" %}
+            </p>
+
+            <ul class="row">
+              <li class="col-sm-12 col-md-4">
+                <label for="{{ wizard.form.nwgroup.id_for_label }}"
+                  class="compact-label{% if form.nwgroup.field.required %} required{% endif %}">
+                  {% trans "NWGroup" %}
+                </label>
+                {{ wizard.form.nwgroup }}
+                {% if wizard.form.nwgroup.errors %}
+                  <ul class="error-list">
+                    {% for error in wizard.form.nwgroup.errors %}
+                      <li class="error">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            </ul>
+
+            <ul class="row">
+              <li class="col-sm-12 col-md-4">
+                <label for="{{ wizard.form.city.id_for_label }}"
+                  class="compact-label{% if form.city.field.required %} required{% endif %}">
+                  {% trans "City" %}
+                </label>
+                {{ wizard.form.city }}
+                {% if wizard.form.city.errors %}
+                  <ul class="error-list">
+                    {% for error in wizard.form.city.errors %}
+                      <li class="error">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+              <li class="col-sm-12 col-md-4">
+                <label for="{{ wizard.form.country.id_for_label }}"
+                  class="compact-label{% if form.country.field.required %} required{% endif %}">
+                  {% trans "Country" %}
+                </label>
+                {{ wizard.form.country }}
+                {% if wizard.form.country.errors %}
+                  <ul class="error-list">
+                    {% for error in wizard.form.country.errors %}
+                      <li class="error">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            </ul>
+          </fieldset>
+
+          <script>
+            // NOTE: select2 init moved to extra_js above. Keeping here is fine too if you prefer.
+            // jQuery('#{{ wizard.form.country.id_for_label }}').select2({ theme: "bootstrap", placeholder: '{% trans "Choose country" %}' });
+          </script>
+
+          <fieldset class="form-section">
+            <legend class="form-section-heading">{% trans "When?" %}</legend>
+            <p class="form-section-subhead">
+              {% trans "Please enter the event date in short Day–Month–Year format (e.g. 21 Dec 2025)." %}
+            </p>
+
+            <ul class="row">
+              <li class="col-sm-12 col-md-4">
+                <label for="{{ wizard.form.date.id_for_label }}"
+                  class="compact-label{% if form.date.field.required %} required{% endif %}">
+                  {% trans "Date of your event" %}
+                </label>
+                {{ wizard.form.date }}
+                {% if wizard.form.date.errors %}
+                  <ul class="error-list">
+                    {% for error in wizard.form.date.errors %}
+                      <li class="error">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            </ul>
+          </fieldset>
+
+          <section class="form-section" id="venue_details">
+            <label class="form-section-heading{% if form.venue.field.required %} required{% endif %}">
+              {% trans "What location are you considering for your event?" %}
+            </label>
+            <p class="form-section-subhead">
+              {% trans "Tell us about your ideas for where the event could take place in your city." %}
+            </p>
+
+            <ul class="row">
+              <li class="col-sm-12 col-md-9">
+                {{ wizard.form.venue }}
+                {% if wizard.form.venue.errors %}
+                  <ul class="error-list">
+                    {% for error in wizard.form.venue.errors %}
+                      <li class="error">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            </ul>
+          </section>
+
+
+          <section class="form-section">
+            <label class="form-section-heading{% if form.additional.field.required %} required{% endif %}">
+              {% trans "Anything else you’d like to share?" %}
+            </label>
+            <p class="form-section-subhead">
+              {% trans "Please include any additional information you think may help your application or that you’d simply like us to know." %}
+            </p>
+
+            <ul class="row">
+              <li class="col-sm-12 col-md-9">
+                {{ wizard.form.additional }}
+                {% if wizard.form.additional.errors %}
+                  <ul class="error-list">
+                    {% for error in wizard.form.additional.errors %}
+                      <li class="error">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            </ul>
+          </section>
+
+          {# reCAPTCHA section removed entirely #}
+
+          <div class="cta-wrapper">
+            <button type="submit" class="cta">{% trans "Finish!" %}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

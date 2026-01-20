@@ -1,0 +1,33 @@
+{% load i18n %}
+<p>Dear Team,</p>
+<ul>
+   <li>{{ organizer_first_name }} {{ organizer_last_name }} &lt;{{ organizer_email}}&gt;</li>
+</ul>
+
+<ul>
+    {% for organizer in organizers %}
+        <li>{{ organizer.first_name }} {{ organizer.last_name }} &lt;{{ organizer.email }}&gt;</li>
+    {% endfor %}
+</ul>
+<p>
+{% blocktrans %}Thank you for submitting your application to organize the Nordic Walking group "{{ group }}" with Nordic Walking United in {{ city }} {{ country }}!{% endblocktrans %}
+
+</p>
+
+<p>
+{% blocktrans trimmed %}
+We’re now reviewing your application and will get back to you within a week.
+
+{% endblocktrans %}
+</p>
+<p>
+{% blocktrans trimmed %}
+We appreciate your interest and look forward to the next steps together.
+
+{% endblocktrans %}
+</p>
+
+<p>With steady strides,</p>
+<p>Nordic Walking United Team</p>
+
+

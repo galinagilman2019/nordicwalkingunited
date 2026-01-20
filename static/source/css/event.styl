@@ -1,0 +1,679 @@
+sans_font = 'Ergonomique'
+serif_font = 'KGDropsofJupiter'
+mint = #FF9400
+gray = #4A4A4A
+
+border-radius(n)
+    -webkit-border-radius n
+    -moz-border-radius n
+    border-radius n
+
+body
+    font-family: sans_font
+    color: black
+    font-size: 18px
+    line-height: 150%
+    height: 100%
+    font-weight: 300
+
+h1, h2, h3, h4, h5, h6
+    font-family: sans_font
+    font-weight: 300
+    color: black
+
+h1
+    color: white
+    font-size: 46px
+
+h2
+    color: white
+    font-size: 36px
+
+h3
+    font-size: 36px
+    margin-top: 0
+    margin-bottom: 20px
+
+h5 a
+    font-family: sans_font
+    font-size: 18px
+
+a, a:hover
+    color: mint
+
+
+.navbar-default
+    background: white
+    border: 0px
+    border-top: 3px solid mint
+    font-family: sans_font
+
+    .navbar-brand
+        color: black
+        a.chapter
+            position: absolute
+            text-transform: uppercase
+            color: white
+            font-size: 12px
+            right: 10px
+            bottom: 4px
+
+    .navbar-brand, .navbar-brand:hover
+        background-color: mint
+        position: absolute
+        height: 70px
+        padding: 0
+        margin-left: 0 !important
+
+    .navbar-nav
+        width: auto
+        padding-left: 200px
+        float: right
+        li
+            height: 50px
+            padding-top: 10px
+            a
+                color: mint
+                font-size: 18px
+                font-family: sans_font
+                font-weight: 300
+                text-transform: uppercase
+            a:hover
+                color: mint
+
+.navbar-wrapper
+    height: 70px
+
+.negative
+    clear: both
+    overflow: hidden
+    position: fixed
+    height: 70px
+    z-index: 9999
+    width: 100%
+    background: none
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, white), color-stop(60%, rgba(255, 255, 255, 0.8)), color-stop(0, rgba(255, 255, 255, 0)))
+
+    .navbar-brand, .navbar-brand:hover
+        background: transparent
+        padding-top: 10px
+        img
+            width: 180px
+
+    .navbar-collapse
+        padding: 0
+        a:last-child
+            padding-right: 0
+
+.australia
+    .navbar-brand
+        padding-right: 19px
+
+    .navbar-nav
+        padding-left: 219px
+
+.overlay
+    padding: 100px 0
+    width: 100%
+    height: 100%
+    background: rgba(0,0,0,0.6)
+    color: white
+    letter-spacing: 3px
+    button, input, optgroup, select, textarea
+        color: initial
+
+.btn, .btn:hover
+    background: mint
+    color: white
+    font-family: sans_font
+    font-size: 18px
+    font-weight: 100
+    margin: 20px 0 0 0
+    padding: 15px 30px
+
+.rsvp-buttons
+    a
+        font-size: 12px
+        font-family: sans_font
+    .btn
+        font-size: 14px
+        padding: 5px 10px
+        margin: 0 10px 20px 0
+        float: left
+
+
+.with-background
+    background: url('../img/photos/photo1.jpg') 50% 0 no-repeat fixed
+    background-size: cover
+    height: auto
+    color: white
+
+
+.without-background
+    padding-top: 60px
+    padding-bottom: 60px
+
+
+.event-static-footer
+    padding: 20px 0
+
+
+#about
+    .overlay
+        padding: 150px 0
+
+        h1
+            font-family: serif_font
+            font-size: 60px
+            color: white
+            line-height: 60px
+            margin-bottom: 20px
+            letter-spacing: 2px
+
+        h2
+            font-family: serif_font
+            font-size: 40px
+            color: #E7E7E7
+            line-height: 40px
+            letter-spacing: 2px
+
+#newsletter
+    .facebook
+        float: left
+        width: 50%
+
+    .twitter
+        margin-top: 25px
+
+    button
+        margin: 0
+        padding: 10px 15px
+        border: 0px
+
+.cls
+    clear: both
+
+.coaches
+    padding: 30px 0px
+    .col-md-2
+        text-align: center
+        .coach
+            max-width: 160px
+            border-radius: 100%
+            margin-bottom: 15px
+
+        a
+            color: black
+            font-family: serif_font
+            font-size: 18px
+
+.social
+    margin-top: 30px
+    .facebook
+        margin: -10px 0 10px 0
+
+    .twitter
+        margin-top: 10px
+
+.credits
+    font-size: 15px
+    text-align: center
+    opacity: 0.6
+    padding-top: 30px
+
+#yourcity
+    background: url('../img/photos/photo2.jpg') 50% 0 no-repeat fixed
+    background-size: cover
+
+.map
+    overflow-x: hidden
+    overflow-y: hidden
+    padding: 0
+    height: 400px
+
+.leaflet-container
+    height: 400px
+
+.applications
+    padding: 15px
+
+    .answer
+        margin-bottom: 25px
+        p
+            margin: 0
+        .question
+            font-weight: bold
+
+    // practically resetting default button styles
+    .btn, .btn:hover
+        font-size: 14px
+        padding: 6px 12px
+        margin-top: 0px
+
+    .dropdown
+        float: left
+        margin-right: 15px
+
+        button
+            border: 0px
+            color: white !important
+
+            &.accepted, &.yes
+                background: #3c763d
+            &.rejected, &.no
+                background: #a94442
+            &.submitted
+                background: #428bca
+            &.waitlisted
+                background: #fec500
+            &.default, &.waiting
+                background: rgba(0,0,0,0.3)
+
+        ul
+            li
+                font-family: sans_font
+
+    input[type="submit"]
+        font-size: 14px
+        padding: 0 10px
+
+    .text-warning
+        color: #fec500 !important
+
+    .download
+        float: right
+
+.stretch-form
+    input[type="text"]
+        width: 90%
+    textarea
+        width: 90%
+        height: 300px
+
+.scoring
+    font-family: sans_font
+    font-size: 18px
+
+    table
+        font-size: 16px
+        width: 100%
+        margin: 30px 0
+
+        thead
+            td
+                background: rgba(0,0,0,0.1)
+
+        td
+            border: 1px solid rgba(0,0,0,0.1)
+            padding: 5px
+
+    h4
+        font-size: 28px
+
+    h5
+        font-size: 22px
+
+    .scoring-form
+        label
+            font-weight: normal
+            margin: 0
+        .help-text
+            font-size: 14px
+            margin: 0 0 10px 0
+        .row
+            margin-bottom: 20px
+        .btn, .btn:hover
+            font-size: 20px
+            padding: 10px 18px
+            margin-top: 0px
+.messages
+    padding: 30px
+
+.rsvp-left-column
+    padding-top: 20px
+
+.rsvp-right-column
+    background: url('../img/photos/apply.jpg') 5% 20% no-repeat
+    min-height: 650px
+    padding: 10px
+    opacity: 0.75
+
+/* ---------------------
+ Responsive design fixes
+---------------------- */
+
+@media (max-width: 1024px)
+
+    h1
+        font-size: 36px
+
+    h2
+        font-size: 26px
+
+    #about
+        background-attachment: scroll
+        height: auto
+        .overlay
+            padding: 80px 0
+
+    #apply
+        background-attachment: scroll
+
+    #coach
+        background-attachment: scroll
+
+    footer
+        background-attachment: scroll
+        background-position: 0
+
+    #value
+        .col-md-6:last-child
+            margin-top: 40px
+
+    #sponsors
+        img
+            max-width: 300px
+            margin-top: 30px
+
+    footer .social .twitter
+        margin-top: 0px
+
+    .navbar-default
+        .navbar-nav
+            .optional
+                display: none
+
+.sponsor-logos
+    .col-md-3
+        text-align: center
+        padding-top: 30px
+
+        img
+            max-width: 80%
+            height: auto
+
+        p
+            margin-top: 15px
+
+#resources
+    .row
+        margin-bottom: 50px
+
+    .cover
+        float: left
+        margin: 0 30px 0 0
+        img
+            border-radius: 3px
+
+    .info
+        p
+            margin-bottom: 0
+        .btn
+            margin-bottom: 10px
+            padding: 10px 30px
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 480px)
+    #about .overlay
+        padding-top: 50px
+        padding-bottom: 50px
+
+    #about
+        background-position: 0
+
+        .overlay
+            h1
+                font-size: 50px
+
+            h2
+                font-size: 30px
+
+    h1
+        font-size: 30px
+
+    h2
+        font-size: 24px
+
+    footer .social .twitter
+        margin: 50px 0 0 12px
+
+    #sponsors
+        .row
+            padding: 0 0 30px 0
+
+    .navbar-default
+        .navbar-nav
+            width: auto
+            padding-left: 0px
+            li
+                height: auto
+                padding-top: 10px
+                a
+                    color: black
+
+    .navbar-default .navbar-collapse
+        border: 0px !important
+        margin-top: 20px
+
+@media only screen and (max-width : 320px)
+    #about
+        .overlay
+            h1
+                font-size: 40px
+
+            h2
+                font-size: 25px
+
+@import "common"
+
+/* 
+---------------
+Custom Fonts
+---------------
+*/
+@font-face 
+    font-family: 'KGDropsofJupiter';
+    src: url('../fonts/KGDropsofJupiter.ttf');
+    src: local('KGDropsofJupiter'), local('KGDropsofJupiter'),
+        url('../fonts/KGDropsofJupiter.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-Light.eot');
+    src: local('Ergonomique Light'), local('Ergonomique-Light'),
+        url('../fonts/Ergonomique-Light.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-Light.woff2') format('woff2'),
+        url('../fonts/Ergonomique-Light.woff') format('woff'),
+        url('../fonts/Ergonomique-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-ExtraLight.eot');
+    src: local('Ergonomique ExtraLight'), local('Ergonomique-ExtraLight'),
+        url('../fonts/Ergonomique-ExtraLight.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-ExtraLight.woff2') format('woff2'),
+        url('../fonts/Ergonomique-ExtraLight.woff') format('woff'),
+        url('../fonts/Ergonomique-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-Bold.eot');
+    src: local('Ergonomique Bold'), local('Ergonomique-Bold'),
+        url('../fonts/Ergonomique-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-Bold.woff2') format('woff2'),
+        url('../fonts/Ergonomique-Bold.woff') format('woff'),
+        url('../fonts/Ergonomique-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-Black.eot');
+    src: local('Ergonomique Black'), local('Ergonomique-Black'),
+        url('../fonts/Ergonomique-Black.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-Black.woff2') format('woff2'),
+        url('../fonts/Ergonomique-Black.woff') format('woff'),
+        url('../fonts/Ergonomique-Black.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-ThinItalic.eot');
+    src: local('Ergonomique Thin Italic'), local('Ergonomique-ThinItalic'),
+        url('../fonts/Ergonomique-ThinItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-ThinItalic.woff2') format('woff2'),
+        url('../fonts/Ergonomique-ThinItalic.woff') format('woff'),
+        url('../fonts/Ergonomique-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-Thin.eot');
+    src: local('Ergonomique Thin'), local('Ergonomique-Thin'),
+        url('../fonts/Ergonomique-Thin.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-Thin.woff2') format('woff2'),
+        url('../fonts/Ergonomique-Thin.woff') format('woff'),
+        url('../fonts/Ergonomique-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-LightItalic.eot');
+    src: local('Ergonomique Light Italic'), local('Ergonomique-LightItalic'),
+        url('../fonts/Ergonomique-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-LightItalic.woff2') format('woff2'),
+        url('../fonts/Ergonomique-LightItalic.woff') format('woff'),
+        url('../fonts/Ergonomique-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-Medium.eot');
+    src: local('Ergonomique Medium'), local('Ergonomique-Medium'),
+        url('../fonts/Ergonomique-Medium.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-Medium.woff2') format('woff2'),
+        url('../fonts/Ergonomique-Medium.woff') format('woff'),
+        url('../fonts/Ergonomique-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-MediumItalic.eot');
+    src: local('Ergonomique Medium Italic'), local('Ergonomique-MediumItalic'),
+        url('../fonts/Ergonomique-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-MediumItalic.woff2') format('woff2'),
+        url('../fonts/Ergonomique-MediumItalic.woff') format('woff'),
+        url('../fonts/Ergonomique-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-SemiboldItalic.eot');
+    src: local('Ergonomique Semibold Italic'), local('Ergonomique-SemiboldItalic'),
+        url('../fonts/Ergonomique-SemiboldItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-SemiboldItalic.woff2') format('woff2'),
+        url('../fonts/Ergonomique-SemiboldItalic.woff') format('woff'),
+        url('../fonts/Ergonomique-SemiboldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-BoldItalic.eot');
+    src: local('Ergonomique Bold Italic'), local('Ergonomique-BoldItalic'),
+        url('../fonts/Ergonomique-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-BoldItalic.woff2') format('woff2'),
+        url('../fonts/Ergonomique-BoldItalic.woff') format('woff'),
+        url('../fonts/Ergonomique-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-Semibold.eot');
+    src: local('Ergonomique Semibold'), local('Ergonomique-Semibold'),
+        url('../fonts/Ergonomique-Semibold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-Semibold.woff2') format('woff2'),
+        url('../fonts/Ergonomique-Semibold.woff') format('woff'),
+        url('../fonts/Ergonomique-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+
+@font-face 
+    font-family: 'Ergonomique Ultra';
+    src: url('../fonts/Ergonomique-Ultra.eot');
+    src: local('Ergonomique Ultra'), local('Ergonomique-Ultra'),
+        url('../fonts/Ergonomique-Ultra.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-Ultra.woff2') format('woff2'),
+        url('../fonts/Ergonomique-Ultra.woff') format('woff'),
+        url('../fonts/Ergonomique-Ultra.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-BlackItalic.eot');
+    src: local('Ergonomique Black Italic'), local('Ergonomique-BlackItalic'),
+        url('../fonts/Ergonomique-BlackItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-BlackItalic.woff2') format('woff2'),
+        url('../fonts/Ergonomique-BlackItalic.woff') format('woff'),
+        url('../fonts/Ergonomique-BlackItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-Italic.eot');
+    src: local('Ergonomique Italic'), local('Ergonomique-Italic'),
+        url('../fonts/Ergonomique-Italic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-Italic.woff2') format('woff2'),
+        url('../fonts/Ergonomique-Italic.woff') format('woff'),
+        url('../fonts/Ergonomique-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-ExtraLightItalic.eot');
+    src: local('Ergonomique ExtraLight Italic'), local('Ergonomique-ExtraLightItalic'),
+        url('../fonts/Ergonomique-ExtraLightItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-ExtraLightItalic.woff2') format('woff2'),
+        url('../fonts/Ergonomique-ExtraLightItalic.woff') format('woff'),
+        url('../fonts/Ergonomique-ExtraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+
+@font-face 
+    font-family: 'Ergonomique';
+    src: url('../fonts/Ergonomique-Regular.eot');
+    src: local('Ergonomique Regular'), local('Ergonomique-Regular'),
+        url('../fonts/Ergonomique-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-Regular.woff2') format('woff2'),
+        url('../fonts/Ergonomique-Regular.woff') format('woff'),
+        url('../fonts/Ergonomique-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+@font-face 
+    font-family: 'Ergonomique Ultra';
+    src: url('../fonts/Ergonomique-UltraItalic.eot');
+    src: local('Ergonomique Ultra Italic'), local('Ergonomique-UltraItalic'),
+        url('../fonts/Ergonomique-UltraItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Ergonomique-UltraItalic.woff2') format('woff2'),
+        url('../fonts/Ergonomique-UltraItalic.woff') format('woff'),
+        url('../fonts/Ergonomique-UltraItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+

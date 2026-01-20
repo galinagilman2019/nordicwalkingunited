@@ -1,0 +1,143 @@
+{% extends "global/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "NWU • Contribute" %}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-3">{% trans "Contribute" %}</h1>
+  <p class="text-muted mb-4">
+    {% trans "There are many ways to be part of Nordic Walking United — from organizing walks to improving our website or supporting our mission." %}
+  </p>
+
+  <div class="row">
+    {# -------- SIDE NAV -------- #}
+    <div class="col-md-3 mb-4">
+      <div class="p-3 border rounded bg-light">
+        <h5 class="mb-3">{% trans "On this page" %}</h5>
+        <ul class="list-unstyled small mb-0">
+          <li><a href="#contribute-overview" class="text-decoration-none">{% trans "Overview" %}</a></li>
+          <li><a href="#contribute-support" class="text-decoration-none">{% trans "Support Us" %}</a></li>
+          <li><a href="#contribute-organize" class="text-decoration-none">{% trans "Organize an Event" %}</a></li>
+          <li><a href="#contribute-website" class="text-decoration-none">{% trans "Work on the Website" %}</a></li>
+          <li><a href="#contribute-tutorial" class="text-decoration-none">{% trans "Fix or Improve Tutorials" %}</a></li>
+          <li><a href="#contribute-more" class="text-decoration-none">{% trans "Want to do more?" %}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    {# -------- MAIN CONTENT -------- #}
+    <div class="col-md-9">
+
+      {# Overview #}
+      <section id="contribute-overview" class="mb-4">
+        <h3 class="mt-0">{% trans "Many ways to contribute" %}</h3>
+        <p>
+          {% trans "There are many ways to be part of Nordic Walking United! You can start Nordic Walking groups, organize local or worldwide NWU events, help create tutorials and educational materials, improve our website, or share your creative ideas on how to grow our movement." %}
+        </p>
+        <p>
+          {% trans "If you’d prefer to support us financially, you can always make a donation using the button below." %}
+        </p>
+        <a href="/donate/" class="btn btn-success btn-sm mt-1">
+          {% trans "Donate" %}
+        </a>
+      </section>
+
+      {# Support Us #}
+      <section id="contribute-support" class="mb-5">
+        <h3>{% trans "Support Us!" %}</h3>
+        <p>
+          {% trans "Nordic Walking United is a registered charity run by volunteers. If you’re an individual or a company and would like to support our mission, you can make a donation using this link:" %}
+        </p>
+        <p>
+          <a href="/donate/" class="btn btn-outline-success btn-sm">
+            {% trans "Donate" %}
+          </a>
+        </p>
+        <p>
+          {% trans "Thank you for helping us grow and give back, one step at a time." %}
+        </p>
+        <p>
+          {% trans "If you’d like to support a specific event, please contact the local organizing team to contribute directly to that event." %}
+        </p>
+      </section>
+
+      {# Organize! #}
+      <section id="contribute-organize" class="mb-5">
+        <h3>{% trans "Organize!" %}</h3>
+        <p>
+          {% blocktrans trimmed %}
+          Each Nordic Walking United event is a free gathering where people come together to learn, move, and connect through Nordic Walking. A typical event lasts several hours and includes a warm-up, a safe and guided Nordic Walking, helpful technique tips, and time to stretch, relax, and socialize afterward.
+          {% endblocktrans %}
+        </p>
+        <p>
+          {% trans "Participants walk in friendly groups with a Nordic Walking host or coach who offers guidance and support along the way." %}
+        </p>
+        <p class="mb-1">
+          {% trans "Want to get started?" %}
+        </p>
+        <p>
+          {% trans "Check our" %}
+          <a href="{% url 'core:nwu_resources' %}">
+            {% trans "Organizer’s Manual" %}
+          </a>
+          {% trans "and bring a Nordic Walking event to your city!" %}
+        </p>
+      </section>
+
+      {# Work on the Website #}
+      <section id="contribute-website" class="mb-5">
+        <h3>{% trans "Work on the Website!" %}</h3>
+        <p>
+          {% trans "There’s always something to do to help make our website even better! You can report (or fix!) bugs and typos, suggest improvements, or help develop new features." %}
+        </p>
+        <p>
+          {% trans "We’d love your support in making our website the best it can be. Please write to us via" %}
+          <a href="{% url 'contact:contact_form' %}">{% trans "Contact Us" %}</a>
+          {% trans "- every bit of help is greatly appreciated!" %}
+        </p>
+      </section>
+
+      {# Fix the Tutorial #}
+      <section id="contribute-tutorial" class="mb-5">
+        <h3>{% trans "Fix the Tutorial!" %}</h3>
+        <p>
+          {% trans "Is something in the tutorial unclear, or did you spot a typo? You can help improve our tutorials by writing to us via the" %}
+          <a href="{% url 'contact:contact_form' %}">{% trans "Contact Us" %}</a>
+        </p>
+
+        <p>
+          {% trans "You can also suggest a new helpful tutorial for our global NWU community." %}
+        </p>
+        <p>
+          {% trans "Thank you for helping us improve and shine — together we make Nordic Walking United brighter with every step!" %}
+        </p>
+      </section>
+
+      {# Want to do more #}
+      <section id="contribute-more" class="mb-4">
+        <h3>{% trans "Want to do more?" %}</h3>
+        <p>
+          {% trans "Want to help out in a way that isn’t listed here? Please reach out to us via" %}
+          <a href="{% url 'contact:contact_form' %}">{% trans "Contact Us" %}</a>
+          {% trans "and share your ideas or new projects you’d love to work on." %}
+        </p>
+
+        <p>
+          {% trans "We can’t wait to hear from you — your ideas may inspire our next adventure and new steps toward a healthier, happier world!" %}
+          <a href="{% url 'contact:contact_form' %}">
+          {% trans "Contact Us" %}
+        </a>
+        </p>
+      </section>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  html { scroll-behavior: smooth; }
+</style>
+{% endblock %}

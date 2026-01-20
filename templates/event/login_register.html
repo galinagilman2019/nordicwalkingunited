@@ -1,0 +1,325 @@
+{% extends 'event/base.html' %}
+{% load i18n %}
+{% block content %}
+<style>
+  .auth-page {
+      max-width: 980px;
+      margin: 40px auto;
+  }
+
+  .auth-card {
+      border: 1px solid #dadada;
+      border-radius: 6px;
+      padding: 30px 40px;
+      background: #fff;
+  }
+
+  .auth-tabs {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 25px;
+      border-bottom: 1px solid #e5e5e5;
+  }
+
+  .auth-tab {
+      padding: 8px 18px;
+      font-weight: 500;
+      font-size: 16px;
+      text-decoration: none;
+      color: #2b4a70;
+      border-bottom: 3px solid transparent;
+      margin-left: 10px;
+  }
+
+  .auth-tab.active {
+      border-bottom-color: #2b4a70;
+  }
+
+  .auth-grid {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+  }
+
+  .auth-form-col {
+      flex: 1 1 320px;
+      min-width: 0;
+  }
+
+  .auth-info-col {
+      flex: 1 1 260px;
+      min-width: 0;
+      border-left: 1px solid #eeeeee;
+      padding-left: 24px;
+  }
+
+  @media (max-width: 768px) {
+      .auth-card {
+          padding: 20px 18px;
+      }
+      .auth-info-col {
+          border-left: none;
+          border-top: 1px solid #eeeeee;
+          padding-left: 0;
+          padding-top: 20px;
+      }
+  }
+
+  .auth-title {
+      font-family: 'Readex Pro', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      margin-bottom: 10px;
+  }
+
+  .auth-subtitle {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 25px;
+  }
+
+  .form-field--wrapper{
+      margin-top: 0.5em;
+      margin-bottom: 0.9em;
+  }
+
+  .form-field--input--short {
+  max-width: 320px;   /* adjust: 260–360px works nicely */
+}
+
+  input.form-field--input,
+  input#id_password1,
+  input#id_password2 {
+      width: 100%;
+      border: 1px solid #000000;
+      padding: 8px 10px;
+      height: auto;        /* <– let the browser decide */
+      border-radius: 3px;
+  }
+
+  textarea.form-field--input-txarea {
+      width: 100%;
+      border: 1px solid #000000;
+      padding: 12px 14px;
+      min-height: 160px;   /* Bio stays nicely tall */
+      resize: vertical;
+  }
+
+  .auth-help-text {
+      font-size: 14px;
+      color: #666;
+      margin-top: 6px;
+  }
+
+  .auth-steps-title {
+      font-weight: 600;
+      margin-bottom: 12px;
+  }
+
+  .auth-step {
+      margin-bottom: 16px;
+  }
+
+  .auth-step-number {
+      font-weight: 700;
+      margin-right: 6px;
+  }
+
+  .login-register-switchpagetext{
+      margin-top: 18px;
+      font-size: 15px;
+      color:black;
+  }
+
+  .login-register-switchpagetext a{
+      color:#2b4a70;
+      font-weight: 500;
+  }
+
+  .error {
+      color: #b30000;
+      font-size: 13px;
+      margin-top: 3px;
+  }
+</style>
+
+
+{# ===================== FLASH / DJANGO MESSAGES ===================== #}
+{% if messages %}
+  <div class="container my-3">
+    {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{# ===================== REGISTER vs LOGIN SWITCH ===================== #}
+{% if page == 'register' %}
+  {# ===================== REGISTER ===================== #}
+
+  <div class="container my-4">
+    <div class="auth-grid">
+      <div class="auth-form-col">
+
+        <h2 class="auth-title">{% trans "Create an Account" %}</h2>
+        <p class="auth-subtitle">
+          {% trans "Join Nordic Walking United to sign up for walks, share your progress, and connect with your group." %}
+        </p>
+
+        <form method="POST"
+              action="{% if eventnwu %}{% url 'core:register' %}?event={{ eventnwu.uuuid }}{% else %}{% url 'core:register' %}{% endif %}"
+              enctype="multipart/form-data"
+              novalidate>
+          {% csrf_token %}
+
+          <input type="hidden" name="event" value="{{ request.GET.event|default:'' }}">
+
+          {# show non-field errors ONCE (e.g. "email already exists") #}
+          {% if form.non_field_errors %}
+            <div class="mb-3">
+              {% for err in form.non_field_errors %}
+                <p class="error">{{ err }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% for field in form %}
+            <div class="form-field--wrapper">
+              <label>
+                {{ field.label }}
+                {% if field.field.required %}<span style="color:red;">*</span>{% endif %}
+              </label>
+
+              {{ field }}
+
+              {% if field.help_text %}
+                <div class="auth-help-text">{{ field.help_text|safe }}</div>
+              {% endif %}
+
+              {% if field.errors %}
+                <div>
+                  {% for error in field.errors %}
+                    {# Hide ONLY the required-error text when the field is empty #}
+                    {% if field.field.required and not field.value and "required" in error|lower %}
+                      {# skip #}
+                    {% else %}
+                      <p class="error">{{ error }}</p>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+          <div class="form-field--wrapper">
+            <input class="btn btn--primary formsubmit-btn" type="submit" value="{% trans 'Register' %}" />
+          </div>
+        </form>
+
+        <p class="login-register-switchpagetext">
+          {% trans "Already have an account?" %}
+          {% if eventnwu %}
+            <a href="{% url 'core:login' %}?event={{ eventnwu.uuuid }}">{% trans "Log In" %}</a>
+          {% else %}
+            <a href="{% url 'core:login' %}">{% trans "Log In" %}</a>
+          {% endif %}
+        </p>
+      </div>
+
+      <div class="auth-info-col">
+        <h5 class="auth-steps-title">{% trans "What happens next?" %}</h5>
+
+        <div class="auth-step">
+          <span class="auth-step-number">1.</span>
+          <span>{% trans "Fill in your basic details, create a secure password and register." %}</span>
+        </div>
+
+        <div class="auth-step">
+          <span class="auth-step-number">2.</span>
+          <span>{% trans "Use your account to register for events, manage your profile and stay in touch with your group." %}</span>
+        </div>
+
+        {% if eventnwu %}
+          <div class="auth-step mt-3">
+            <strong>{% trans "Current event:" %}</strong><br>
+            {{ eventnwu.name }}<br>
+            {{ eventnwu.city }}, {{ eventnwu.country }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% else %}
+  {# ===================== LOGIN ===================== #}
+
+  <div class="container my-4">
+    <div class="login-register--container section">
+
+      {% if request.GET.event %}
+        <p class="login-greattings">
+          {% trans "Welcome back!" %}
+        </p>
+      {% endif %}
+
+      <h2 class="form-field--title">{% trans "Log In" %}</h2>
+
+      <form method="POST"
+            action="{% url 'core:login' %}{% if request.GET.event %}?event={{ request.GET.event }}{% endif %}"
+            enctype="multipart/form-data"
+            novalidate>
+        {% csrf_token %}
+
+        <input type="hidden" name="event" value="{{ request.GET.event|default:'' }}">
+
+        {# if your login view passes messages or a form with errors, they'll appear above via messages #}
+        {% if form %}
+          {{ form.non_field_errors }}
+        {% endif %}
+
+        <div class="form-field--wrapper">
+          <label>{% trans "Email" %}</label>
+          <input class="form-field--input" id="id_email" type="email" name="email" value="{{ request.POST.email|default:'' }}" />
+        </div>
+
+        <div class="form-field--wrapper">
+  <label>{% trans "Password" %}</label>
+  <input
+    class="form-field--input form-field--input--short"
+    id="id_password1"
+    type="password"
+    name="password"
+  />
+</div>
+
+        <div class="form-field--wrapper">
+          <input class="btn btn--primary formsubmit-btn" type="submit" value="{% trans 'Login' %}" />
+        </div>
+
+        {# ===================== Reset password ===================== #}
+        <div class="form-field--wrapper">
+          <p class="login-register-switchpagetext">
+            <a href="{% url 'password_reset' %}">
+              {% trans "Forgot your password? Reset it here." %}
+            </a>
+          </p>
+        </div>
+        {# ===================== Reset password ===================== #}
+
+
+
+        <p class="login-register-switchpagetext">
+          {% trans "Don't have an account?" %}
+          <a href="{% url 'core:register' %}{% if request.GET.event %}?event={{ request.GET.event }}{% endif %}">
+            {% trans "Register" %}
+          </a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+{% endif %}
+
+{% endblock content %}

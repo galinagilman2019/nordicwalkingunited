@@ -1,0 +1,50 @@
+{% load i18n %}
+
+<p>Dear Team,</p>
+<ul>
+   <li>{{ organizer_first_name }} {{ organizer_last_name }};</li>
+</ul>
+
+<ul>
+    {% for organizer in organizers %}
+        <li>{{ organizer.first_name }} {{ organizer.last_name }};</li>
+    {% endfor %}
+</ul>
+
+<p>
+    {% blocktrans %} Congratulations — and welcome aboard!{% endblocktrans %}
+</p>
+<p>
+    {% blocktrans %}We’re delighted to let you know  that your application to organize a new NWU group in {{city}}, {{country}} has been officially accepted. We’re truly excited to have you join our growing global family!{% endblocktrans %}
+</p>
+<p>
+{% blocktrans %}You now have access to the NWU Admin Panel of the NWU platform, where you can easily create and manage events for your new group,  "{{ group }}" group in {{ city }} {{ country }}. You can access the 🌐 Admin Panel: {% endblocktrans %}
+</p>
+<p>
+{% blocktrans %}🌐 Admin Panel: {% endblocktrans %}
+   {% blocktrans %}https://nwu.pythonanywhere.com//admin/{% endblocktrans %}
+</p>
+<p>
+{% blocktrans %}👤 User Name: your email address {% endblocktrans %}
+</p>
+
+<p>
+{% blocktrans %}🔑 Password: your current password  {% endblocktrans %}
+</p>
+<p>
+{% blocktrans %} New user: the default password is "organizer".  {% endblocktrans %}
+</p>
+<p>
+{% blocktrans %} To help you get started smoothly, the NWU Team has already created a template for your very first event. It’s titled  "{{ group }} {{ city }}",  but you are welcome to rename it and adjust any event details to match your plans.  {% endblocktrans %}
+</p>
+   {% blocktrans %}📘 Tutorial: Application Accepted {% endblocktrans %}
+  {% blocktrans %}https://www.nordicwalkingunited.org/en/tutorials/application-accepted/{% endblocktrans %}
+
+<p>
+{% blocktrans %} We can’t wait to see your enthusiasm come to life and watch your group grow and shine. Thank you for bringing your energy, leadership, and inspiration to the Nordic Walking United community!  {% endblocktrans %}
+</p>
+<p>
+{% blocktrans %} With joy in every step,  {% endblocktrans %}
+</p>
+<p>The Nordic Walking United Team</p>
+

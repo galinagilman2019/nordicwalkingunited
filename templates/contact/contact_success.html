@@ -1,0 +1,10 @@
+
+{% extends "global/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Thank You!</h2>
+    <p>Your message has been successfully sent. We will get back to you shortly.</p>
+    <a href="{% url 'contact:contact_form' %}" class="btn btn-secondary">Back to Contact Form</a>
+</div>
+{% endblock %}

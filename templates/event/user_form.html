@@ -1,0 +1,169 @@
+{% extends 'event/base.html' %}
+
+{% block content %}
+<style>
+  .profile-edit-container {
+      max-width: 720px;
+      margin: 30px auto;
+      border: 1px solid #e3e3e3;
+      border-radius: 6px;
+      padding: 30px 32px;
+      background: #ffffff;
+  }
+
+  .profile-edit-title {
+      font-family: 'Readex Pro', sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      margin-bottom: 10px;
+  }
+
+  .profile-edit-subtitle {
+      color: #555;
+      margin-bottom: 25px;
+  }
+
+  .profile-avatar-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+  }
+
+  .profile-avatar-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #ccc;
+  }
+
+  .profile-avatar-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #f2f2f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: #888;
+  }
+
+  .form-field--wrapper {
+      margin-top: 0.8em;
+      margin-bottom: 0.8em;
+  }
+
+  .form-field--wrapper label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 4px;
+  }
+
+  input.form-field--input,
+  .profile-edit-container input[type="text"],
+  .profile-edit-container input[type="email"],
+  .profile-edit-container select {
+      width: 100%;
+      border: 1px solid #000;
+      padding: 8px 10px;
+      height: auto;
+      border-radius: 3px;
+  }
+
+  textarea.form-field--input-txarea {
+      width: 100%;
+      border: 1px solid #000;
+      padding: 12px 14px;
+      min-height: 160px;
+      resize: vertical;
+  }
+
+  .profile-edit-buttons {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+  }
+
+  .profile-edit-error {
+      color: #b30000;
+      font-size: 13px;
+      margin-top: 3px;
+  }
+</style>
+
+<div class="profile-edit-container">
+  <h2 class="profile-edit-title">Edit Profile</h2>
+  <p class="profile-edit-subtitle">
+    Update your details so organizers know who is joining their Nordic Walking Event.
+  </p>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if event_uuid %}
+      <input type="hidden" name="event" value="{{ event_uuid }}">
+    {% endif %}
+
+    {# ---------- Avatar block ---------- #}
+    <div class="profile-avatar-row">
+      {% if request.user.avatar %}
+        <img src="{{ request.user.avatar.url }}"
+             alt="{{ request.user.name }}"
+             class="profile-avatar-img">
+      {% else %}
+        <div class="profile-avatar-placeholder">
+          {{ request.user.name|first|default:request.user.username|first }}
+        </div>
+      {% endif %}
+
+      <div style="flex: 1;">
+        <label for="{{ form.avatar.id_for_label }}">
+          Avatar{% if form.avatar.field.required %}<span style="color:red;">*</span>{% endif %}
+        </label>
+        {{ form.avatar }}
+        {% for error in form.avatar.errors %}
+          {% if "This field is required" not in error %}
+            <div class="profile-edit-error">{{ error }}</div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {# ---------- All other fields ---------- #}
+    {% for field in form %}
+      {% if field.name != "avatar" %}
+        <div class="form-field--wrapper">
+          <label for="{{ field.id_for_label }}">
+            {{ field.label }}{% if field.field.required %}<span style="color:red;">*</span>{% endif %}
+          </label>
+
+          {{ field }}
+
+          {% if field.help_text %}
+            <div class="auth-help-text" style="font-size:13px; color:#666;">
+              {{ field.help_text|safe }}
+            </div>
+          {% endif %}
+
+          {% for error in field.errors %}
+            {% if "This field is required" not in error %}
+              <div class="profile-edit-error">{{ error }}</div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <div class="profile-edit-buttons">
+      <button type="submit" class="btn btn--primary">Update Profile</button>
+      {% if event_uuid %}
+        <a href="{% url 'core:account' %}?event={{ event_uuid }}" class="btn btn--secondary">Cancel</a>
+      {% else %}
+        <a href="{% url 'core:account' %}" class="btn btn--secondary">Cancel</a>
+      {% endif %}
+    </div>
+  </form>
+</div>
+{% endblock %}

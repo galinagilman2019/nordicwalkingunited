@@ -1,0 +1,139 @@
+{% load i18n rev static %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JGJW1VEY0D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JGJW1VEY0D');
+  </script>
+
+  <meta charset="utf-8">
+  <title>{% block title %}{% trans "Nordic Walking United" %}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% trans "Nordic Walking United" %}{% endblock %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{% block og_title %}{% trans "Nordic Walking United" %}{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="{% block og_description %}{% trans "Join us!" %}{% endblock %}">
+  <meta property="og:image" content="{% block og_image %}https://raw.githubusercontent.com/olasitarska/djangogirls/gh-pages/resources/graphics/logo_square.png{% endblock %}">
+
+  <link href="{% static 'img/favicon.ico' %}" rel="shortcut icon">
+
+  {% block main_stylesheet %}
+    <link rel="stylesheet" href="{% static_rev 'css/global.css' %}" media="screen">
+  {% endblock %}
+  {% block extra_css %}
+  <style>
+      <style>
+/* ----------------------------------------------------
+   BLOG COMMENT & REPLY STYLING
+---------------------------------------------------- */
+
+.comment-list {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.comment-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.comment-item:last-child {
+    border-bottom: none;
+}
+
+.comment-item strong {
+    font-size: 1rem;
+}
+
+.comment-item .comment-body {
+    margin-top: .25rem;
+    white-space: pre-line;
+}
+
+/* ORGANIZER / SUPERUSER REPLY BLOCK */
+.comment-reply {
+    margin-top: 0.75rem;
+    margin-left: 1.25rem;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border-left: 4px solid #28a745; /* NWU green */
+    border-radius: 0.25rem;
+}
+
+.comment-reply .reply-meta {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+}
+
+.comment-reply .reply-body {
+    margin: 0;
+    white-space: pre-line;
+}
+
+/* BADGE FOR 'Reply' LABEL */
+.badge-success {
+    background-color: #28a745 !important;
+    padding: 0.2em 0.45em;
+    font-size: 0.75rem;
+    vertical-align: middle;
+}
+
+/* OPTIONAL: Slight highlight for a comment that HAS a reply */
+.comment-item.has-reply {
+    background: #fcfcfc;
+}
+
+/* OPTIONAL: Make email look softer */
+.comment-item small.text-muted {
+    font-size: 0.85rem;
+}
+
+</style>
+  </style>
+  {% endblock %}
+
+  {# IMPORTANT: load page-specific JS libs early again #}
+  {% block extra_js %}{% endblock %}
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <div class="page-wrap">
+    {% block menu %}
+      {% include 'global/menu.html' %}
+    {% endblock %}
+
+    <style>
+      .ck-content img {
+        max-width: 700px !important;
+        height: auto !important;
+        display: block;
+        margin: 1em auto;
+      }
+    </style>
+
+    {% block content %}{% endblock %}
+  </div>
+
+  {% block footer %}
+    {% include 'global/footer.html' %}
+  {% endblock %}
+
+  <!-- Core JS -->
+  <script src="{% static 'vendor/js/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/js/sss.min.js' %}"></script>
+
+  {% include 'includes/js.html' %}
+  {% include 'global/cookie_modal.html' %}
+</body>
+</html>

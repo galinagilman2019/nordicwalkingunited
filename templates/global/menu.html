@@ -1,0 +1,73 @@
+{% load i18n hashed_static static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white" role="navigation">
+  <div class="container">
+    <a class="navbar-brand logo" href="{% url 'core:index' %}">
+      <img src="{% hashed_static 'img/global/logo.png' %}" alt="Nordic Walking" width="90" height="90"/>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-2" href="#" id="supportDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            {% trans "Support us" %} <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="supportDropdown">
+            <li><a class="dropdown-item" href="{% url 'core:contribute' %}">{% trans "Contribute" %}</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'donations:donate' %}">{% trans "Donate" %}</a></li>
+
+            <li><hr class="dropdown-divider"></li>
+
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown px-2">
+          <a class="nav-link dropdown-toggle" href="#" id="volunteerDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            {% trans "Resources" %} <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="volunteerDropdown">
+
+
+             <li><a class="dropdown-item" href="{% url 'core:nwu_rules' %}">{% trans "Guidelines" %}</a></li>
+             <li><a class="dropdown-item" href="{% url 'core:coc' %}">{% trans "NWU Code of Conduct" %}</a></li>
+             <li><a class="dropdown-item" href="{% url 'core:nwu_resources' %}">{% trans "Tutorials" %}</a></li>
+             <li><a class="dropdown-item" href="{% url 'blog:post_list' %}">{% trans "Our Blog" %}</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown px-2">
+          <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            {% trans "QUICK LINKS" %} <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="newsDropdown">
+            <li><a class="dropdown-item" href="{% url 'organize:prerequisites'  %}">  {% trans "Organize a Nordic Walking Group" %}</a></li>
+
+            <li><a class="dropdown-item" href="{% url 'core:home_nwu' %}">{% trans "Nordic Walking Groups" %}</a></li>
+
+            <li><a class="dropdown-item" href="{% url 'core:events' %}">{% trans "Events" %}</a></li>
+
+
+            {%comment%}<li><a class="dropdown-item" href="{% url 'core:newsletter' %}">{% trans "Newsletter" %}</a></li>
+            <li><a class="dropdown-item" href="https://blog.djangogirls.org/">{% trans "Our blog" %}</a></li>{%endcomment%}
+          </ul>
+        </li>
+
+        <li class="nav-item px-2">
+
+               <a class="nav-link" href="{% url 'contact:contact_form' %}">{% trans "Contact us" %}</a>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

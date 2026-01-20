@@ -1,0 +1,8 @@
+{% extends 'event/base.html' %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+         <a href="{% url 'core:eventnwu' eventnwu.uuuid %}">Go back</a>
+        <input type="submit" value="Confirm" />
+    </form>
+{% endblock content %}

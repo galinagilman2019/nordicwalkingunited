@@ -1,0 +1,43 @@
+{% extends "global/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-3">{% trans "Support Nordic Walking United" %}</h2>
+
+  <p class="lead">
+    {% trans "Your contribution helps us organize NWU Group, provide training materials, and expand Nordic Walking Groups worldwide." %}
+  </p>
+
+  <hr>
+
+  <h4>{% trans "Make a Donation" %}</h4>
+  <p>{% trans "Choose your preferred donation method below:" %}</p>
+
+  <!-- Example: PayPal -->
+ <form action="https://www.paypal.com/donate" method="post" target="_top">
+<input type="hidden" name="hosted_button_id" value="CVMHA4PT5YNZJ" />
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+</form>
+  <hr>
+
+  <h4>{% trans "Other Ways to Help" %}</h4>
+  <ul>
+    <li>{% trans "Become a local sponsor for workshops or training events." %}</li>
+    <li>{% trans "Provide walking poles or materials for beginners." %}</li>
+    <li>{% trans "Share our events with your community to spread awareness." %}</li>
+  </ul>
+
+
+
+  <p>
+          {% trans "For partnership inquiries, contact us at" %}
+          <a href="{% url 'contact:contact_form' %}">
+          {% trans "Contact Us" %}
+        </a>
+        </p>
+
+</div>
+{% endblock %}
+

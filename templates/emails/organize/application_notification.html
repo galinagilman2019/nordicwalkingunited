@@ -1,0 +1,48 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <p>
+      {% blocktrans %}A new application to organize a Nordic Walking United (NWU) group has been submitted.{% endblocktrans %}
+    </p>
+
+    <h2>{% trans "Actions" %}</h2>
+    <p>
+      <a href="https://nwu.pythonanywhere.com{% url 'admin:organize_eventapplication_change' application.id %}">
+        {% trans "Open this application in the admin" %}
+      </a>
+    </p>
+
+    <h2>{% trans "NWU Group information" %}</h2>
+
+    <p>
+      <strong>{% trans "NWU Group:" %}</strong><br />
+      {{ application.nwgroup }}
+    </p>
+
+    <p>
+      <strong>{% trans "Location:" %}</strong><br />
+      {{ application.city }}, {{ application.get_country_display }}
+    </p>
+
+
+    <h2>{% trans "Organizers" %}</h2>
+
+    <p>
+      <strong>{% trans "Lead organizer:" %}</strong><br />
+      {{ application.get_main_organizer_name }} ({{ application.main_organizer_email }})
+    </p>
+
+    <p>
+      <strong>{% trans "Team:" %}</strong><br />
+      {% for member in application.coorganizers.all %}
+        - {{ member.first_name }} {{ member.last_name }} ({{ member.email }})<br />
+      {% empty %}
+        {% trans "No additional team members listed." %}
+      {% endfor %}
+    </p>
+
+  </body>
+</html>

@@ -1,0 +1,127 @@
+{% extends 'global/base.html' %}
+{% load i18n markdown_deux_tags static %}
+
+{% block title %}{% trans "Django Girls Foundation Governing Document" %}{% endblock %}
+
+{% block content %}
+<div class="bylaws">
+  <div class="text-end" style="margin-bottom:1rem;">
+    <button onclick="window.print()" class="btn btn-outline-secondary btn-sm">🖨️ Print or Save as PDF</button>
+  </div>
+
+  <h1>BYLAWS (GOVERNING DOCUMENT)<br>OF<br>NORDIC WALKING UNITED, INC.<br><small>(a 501(c)(3) Non-Profit Organization)</small></h1>
+
+  <nav class="toc" aria-label="Table of Contents">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#article-i">ARTICLE I – NAME &amp; OFFICE</a></li>
+      <li><a href="#article-ii">ARTICLE II – PURPOSES &amp; OBJECTS</a></li>
+      <li><a href="#article-iii">ARTICLE III – MEMBERSHIP</a></li>
+      <li><a href="#article-iv">ARTICLE IV – BOARD OF DIRECTORS</a></li>
+      <li><a href="#article-v">ARTICLE V – POWERS</a></li>
+      <li><a href="#article-vi">ARTICLE VI – CONFLICTS OF INTEREST</a></li>
+      <li><a href="#article-vii">ARTICLE VII – INCOME &amp; PROPERTY</a></li>
+      <li><a href="#article-viii">ARTICLE VIII – DISSOLUTION</a></li>
+      <li><a href="#article-ix">ARTICLE IX – AMENDMENTS</a></li>
+    </ol>
+  </nav>
+
+  <hr>
+
+  <section id="article-i">
+    <h2>ARTICLE I – NAME &amp; OFFICE</h2>
+    <ol>
+      <li>The name of this organization is <strong>Nordic Walking United, Inc.</strong> (<strong>NWU</strong>).</li>
+      <li>The principal office is located in Pembroke, Massachusetts, USA, with authority to establish additional offices as needed.</li>
+    </ol>
+  </section>
+
+  <section id="article-ii">
+    <h2>ARTICLE II – PURPOSES &amp; OBJECTS</h2>
+    <p>Nordic Walking United is organized exclusively for charitable and educational purposes within the meaning of Section 501(c)(3) of the Internal Revenue Code.</p>
+    <p>The purposes of NWU are:</p>
+    <ol>
+      <li><strong>Health &amp; Well-Being</strong> – To advance the health and wellness of the public by promoting Nordic Walking and healthy lifestyles.</li>
+      <li><strong>Environment</strong> – To protect and improve the environment through community service projects, cleanups, and other efforts integrated with outdoor activity.</li>
+      <li><strong>Education</strong> – To educate the public through Nordic Walking about outdoor safety, local ecology, medicinal herbs and mushrooms, nutrition, the importance of community engagement, longevity, and related topics.</li>
+      <li><strong>Volunteer Support</strong> – To support local organizations by creating and leading volunteer events.</li>
+      <li><strong>Inclusivity</strong> – To provide accessible and inclusive programs for people of all ages, abilities, backgrounds, and cultures.</li>
+      <li><strong>Support</strong> – To assist individuals facing challenges such as cancer, osteoporosis, Parkinson’s disease, depression, heart disease, and other conditions through supportive walking groups.</li>
+      <li><strong>Community &amp; Global Network</strong> – To build bridges across cultures and nations, uniting people through Nordic walking, service, and shared responsibility for community and planet.</li>
+    </ol>
+    <p><em>No part of NWU’s net earnings shall inure to the benefit of, or be distributable to, its members, directors, officers, or other private persons, except as permitted under Section 501(c)(3).</em></p>
+  </section>
+
+  <section id="article-iii">
+    <h2>ARTICLE III – MEMBERSHIP</h2>
+    <ol>
+      <li><strong>Governance</strong> – NWU is governed by its Board of Directors.</li>
+      <li><strong>Community participation</strong> – The term “Nordic Walking United” may be used by individuals, groups, or communities who join NWU and share its values to organize Nordic Walks or giving-back events. Being a trustee or board member is not required to participate in the NWU movement.</li>
+    </ol>
+  </section>
+
+  <section id="article-iv">
+    <h2>ARTICLE IV – BOARD OF DIRECTORS</h2>
+    <ol>
+      <li><strong>Authority</strong> – The Board of Directors manages the affairs of NWU.</li>
+      <li><strong>Number</strong> – The Board consists of not fewer than three (3) directors.</li>
+      <li><strong>Duties</strong> – Each director shall act in good faith to further NWU’s mission and exercise reasonable care and skill.</li>
+      <li><strong>Meetings</strong> – The Board meets at least twice annually. Meetings are held in person or via electronic means.</li>
+      <li><strong>Decisions</strong> – Decisions are made by majority vote of directors present at a meeting with quorum.</li>
+      <li><strong>Election and Term of Officers</strong> – Officers (President, Treasurer, and Secretary/Clerk) shall be elected by the Board of Directors at the annual meeting and shall serve for a term of one (1) year or until their successors are elected and qualified. Officers may be re-elected to successive terms.</li>
+      <li><strong>Removal of Officers</strong> – Any officer may be removed, with or without cause, by a two-thirds (2/3) vote of the Board of Directors whenever, in its judgment, the best interests of the corporation will be served thereby.</li>
+    </ol>
+  </section>
+
+  <section id="article-v">
+    <h2>ARTICLE V – POWERS</h2>
+    <p>The Board of Directors has power to:</p>
+    <ul>
+      <li>Raise and manage funds to support NWU’s purposes.</li>
+      <li>Employ staff or contractors as needed.</li>
+      <li>Acquire, hold, lease, or dispose of property.</li>
+      <li>Partner with other organizations to advance NWU’s mission.</li>
+      <li>Make donations or grants to other nonprofit organizations, governmental entities, or community initiatives, provided such contributions further the charitable purposes of Nordic Walking United, Inc.</li>
+      <li>Establish committees and delegate powers as appropriate.</li>
+    </ul>
+  </section>
+
+  <section id="article-vi">
+    <h2>ARTICLE VI – CONFLICTS OF INTEREST</h2>
+    <p>Any director with a financial or personal interest in a matter before the Board must disclose the conflict and recuse themselves from related decisions.</p>
+  </section>
+
+  <section id="article-vii">
+    <h2>ARTICLE VII – INCOME &amp; PROPERTY</h2>
+    <ol>
+      <li>All income and property of NWU is applied solely toward its charitable purposes.</li>
+      <li>No income may be distributed to members, trustees, or private persons, except as permitted by law and under Section 501(c)(3) of the Internal Revenue Code.</li>
+    </ol>
+  </section>
+
+  <section id="article-viii">
+    <h2>ARTICLE VIII – DISSOLUTION</h2>
+    <p>Upon dissolution of NWU, assets shall be distributed for one or more exempt purposes within the meaning of Section 501(c)(3) of the Internal Revenue Code, or to the federal government, or to a state or local government for a public purpose.</p>
+  </section>
+
+  <section id="article-ix">
+    <h2>ARTICLE IX – AMENDMENTS</h2>
+    <p>These Bylaws may be amended by a two-thirds vote of the Board of Directors at any properly convened meeting, provided that notice of the proposed amendment is given at least ten (10) days in advance.</p>
+  </section>
+</div>
+
+<style>
+  .bylaws h1 { text-align:center; margin: 0 0 1rem; line-height:1.35; }
+  .bylaws h2 { margin-top:1.25rem; }
+  .bylaws .toc { background:#f9f9f9; border-left:4px solid #2c6e49; padding:1rem 1.25rem; border-radius:8px; }
+  .bylaws .toc a { text-decoration:none; }
+  .bylaws .toc a:hover { text-decoration:underline; }
+  .bylaws ol { padding-left:1.2rem; }
+  @media print {
+    .bylaws .btn, nav, header, footer { display:none !important; }
+    body { color:#000; font-size:12pt; }
+    .bylaws { margin:0; }
+  }
+</style>
+
+{% endblock %}

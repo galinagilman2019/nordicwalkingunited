@@ -1,0 +1,58 @@
+{% load i18n rev static %}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JGJW1VEY0D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JGJW1VEY0D');
+    </script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+  <title>{% block title %}{% trans "Nordic Walking United
+  " %}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% trans "Nordic Waking United" %}{% endblock %}">
+  <meta name="keywords" content="programming, python, django">
+  <link href="{% static 'img/favicon.ico' %}" rel="shortcut icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="{% block og_title %}{% trans "Nordic Waking United" %}{% endblock %}" >
+  <meta property="og:type" content="website" >
+  <meta property="og:description" content="{% block og_description %}{% trans "Join us! " %}{% endblock %}" >
+  <meta property="og:image" content="{% block og_image %}https://raw.githubusercontent.com/olasitarska/djangogirls/gh-pages/resources/graphics/logo_square.png{% endblock %}" >
+
+  {% block main_stylesheet %}<link rel="stylesheet" type="text/css" href="{% static_rev 'css/global.css' %}" media="screen">{% endblock %}
+  {% block extra_css %}{% endblock %}
+
+  <script type="text/javascript" src="{% static 'vendor/js/jquery.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'vendor/js/bootstrap.bundle.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'vendor/js/sss.min.js' %}"></script>
+
+  {% block extra_js %}{% endblock %}
+</head>
+<body>
+
+{% block menu %}
+  {% include 'event/menu.html' %}
+{% endblock %}
+
+{# ✅ GLOBAL FLASH MESSAGES (works for login/register and everything) #}
+{% if messages %}
+  <div class="container my-3">
+    {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% block content %}{% endblock %}
+
+{% include 'includes/js.html' %}
+{% include 'global/cookie_modal.html' %}
+</body>
+
+</html>

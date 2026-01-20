@@ -1,0 +1,23 @@
+{% extends "global/base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container py-4">
+  <h1 class="mb-3">{% trans "Blog" %}</h1>
+  {% if posts %}
+    <ul class="list-unstyled">
+      {% for post in posts %}
+        <li class="mb-3">
+          <h3 class="mb-1">
+            <a href="{% url 'blog:post_detail' slug=post.slug %}">{{ post.title }}</a>
+          </h3>
+          {% if post.published_at %}
+            <small class="text-muted">{{ post.published_at|date:"M j, Y" }}</small>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">{% trans "No posts yet." %}</p>
+  {% endif %}
+</div>
+{% endblock %}

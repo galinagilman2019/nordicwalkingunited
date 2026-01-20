@@ -1,0 +1,438 @@
+{% extends "global/base.html" %}
+{% load i18n %}
+{% block title %}{{ post.title }} · {{ block.super }}{% endblock %}
+
+{% block content %}
+<style>
+/* Keep CKEditor content inside the column */
+.ck-content img,
+.comment-images img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Comment list styling (so it doesn’t look like one huge page block) */
+.comment-list { margin: 0; padding: 0; }
+.comment-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  background: #fff;
+}
+.comment-header{
+  display:flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+  margin-bottom: 8px;
+}
+.comment-author-line strong { font-size: 1.05rem; }
+.comment-body { margin-top: 6px; }
+
+/* Prevent “Reply” collapse button from looking weird */
+.reply-toggle { text-decoration: none; }
+
+/* Make the post image and body not collide with comments */
+article { overflow: hidden; }
+</style>
+
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+{# -------------------- FLASH MESSAGES -------------------- #}
+{% if messages %}
+  <div class="mb-3">
+    {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+      {# CKEditor JS/CSS for this form #}
+      {{ form.media }}
+
+      {# -------------------- POST CONTENT -------------------- #}
+      <article class="mb-4">
+        <h1 class="mb-2">{{ post.title }}</h1>
+        <p class="text-muted mb-3">
+          {% if post.published_at %}
+            {{ post.published_at|date:"M d, Y" }}
+          {% else %}
+            {% trans "Draft" %}
+          {% endif %}
+          {% if post.author %}
+            · {% trans "by" %} {{ post.author.get_full_name|default:post.author.username }}
+          {% endif %}
+        </p>
+        <div class="ck-content">
+          {{ post.body|safe }}
+        </div>
+      </article>
+
+
+
+      {# -------------------- COMMENTS LIST -------------------- #}
+      <section id="comments" class="mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="mb-0">{% trans "Comments" %}</h3>
+
+          {# Sorting controls #}
+          <div class="small">
+            {% trans "Sort by" %}:
+            {% if order == "newest" %}
+              <strong>{% trans "Newest first" %}</strong> ·
+              <a href="?order=oldest">{% trans "Oldest first" %}</a>
+            {% else %}
+              <a href="?order=newest">{% trans "Newest first" %}</a> ·
+              <strong>{% trans "Oldest first" %}</strong>
+            {% endif %}
+          </div>
+        </div>
+
+        {% if page_obj.object_list %}
+          <ul class="comment-list list-unstyled">
+            {% for c in page_obj.object_list %}
+              <li id="comment-{{ c.id }}" class="comment-card {% if c.reply %}has-reply{% endif %}">
+                <div class="comment-inner">
+
+                  <div class="comment-header">
+                    <div class="comment-author-line">
+                      <strong>{{ c.name }}</strong>
+                      {% if c.email %}
+                        <span class="text-muted small d-block">{{ c.email }}</span>
+                      {% endif %}
+                    </div>
+                    <small class="text-muted">
+                      {{ c.created_at|date:"M d, Y H:i" }}
+                    </small>
+                  </div>
+
+                  {%comment%}<p class="mb-0 comment-body" style="white-space:pre-line">{{ c.body }}</p>{%endcomment%}
+                  <div class="comment-body ck-content">
+                      {{ c.body|safe }}
+                  </div>
+                  {# Any images attached to this comment #}
+                  {% if c.images %}
+                    <div class="comment-images ck-content mt-2">
+                      {{ c.images|safe }}
+                    </div>
+                  {% endif %}
+
+                  {# Collapsible organizer reply #}
+                  {% if c.reply %}
+                    <button
+                      type="button"
+                      class="btn btn-link btn-sm px-0 mt-1 reply-toggle"
+                      data-target="#reply-{{ c.id }}"
+                      aria-expanded="false"
+                    >
+                      {% trans "Show reply ↓" %}
+                    </button>
+
+                    <div id="reply-{{ c.id }}" class="comment-reply collapse mt-2">
+                      <p class="reply-meta small text-muted mb-1">
+                        <strong>
+                          {% if c.replied_by %}
+                            {{ c.replied_by.get_full_name|default:c.replied_by.username }}
+                          {% else %}
+                            {% trans "Organizer" %}
+                          {% endif %}
+                        </strong>
+                        {% if c.replied_at %}
+                          · {{ c.replied_at|date:"M d, Y H:i" }}
+                        {% endif %}
+                        <span class="badge badge-success ml-2">
+                          {% trans "Reply" %}
+                        </span>
+                      </p>
+                      <p class="reply-body mb-0" style="white-space:pre-line">{{ c.reply }}</p>
+                    </div>
+                  {% endif %}
+
+                  {# -------------------- EMOJI REACTIONS -------------------- #}
+                  <div class="comment-reactions mt-2 small">
+                    <span class="text-muted me-2">{% trans "React:" %}</span>
+
+                    <form method="post"
+                          action="{% url 'blog:comment_react' c.pk %}"
+                          class="d-inline">
+                      {% csrf_token %}
+                      <input type="hidden" name="emoji" value="leaf">
+                      <button type="submit" class="btn btn-sm btn-outline-success me-1">
+                        🌿
+                        <span class="badge bg-light text-dark">{{ c.reactions_leaf }}</span>
+                      </button>
+                    </form>
+
+                    <form method="post"
+                          action="{% url 'blog:comment_react' c.pk %}"
+                          class="d-inline">
+                      {% csrf_token %}
+                      <input type="hidden" name="emoji" value="heart">
+                      <button type="submit" class="btn btn-sm btn-outline-danger me-1">
+                        ❤️
+                        <span class="badge bg-light text-dark">{{ c.reactions_heart }}</span>
+                      </button>
+                    </form>
+
+                    <form method="post"
+                          action="{% url 'blog:comment_react' c.pk %}"
+                          class="d-inline">
+                      {% csrf_token %}
+                      <input type="hidden" name="emoji" value="smile">
+                      <button type="submit" class="btn btn-sm btn-outline-secondary">
+                        😊
+                        <span class="badge bg-light text-dark">{{ c.reactions_smile }}</span>
+                      </button>
+                    </form>
+                  </div>
+
+                </div> {# .comment-inner #}
+              </li>
+            {% endfor %}
+          </ul>
+
+          {# -------- Pagination controls -------- #}
+          {% if page_obj.has_other_pages %}
+            <nav aria-label="Comments pagination">
+              <ul class="pagination">
+                {% if page_obj.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ page_obj.previous_page_number }}&order={{ order }}">
+                      &laquo; {% trans "Previous" %}
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <span class="page-link">&laquo; {% trans "Previous" %}</span>
+                  </li>
+                {% endif %}
+
+                <li class="page-item disabled">
+                  <span class="page-link">
+                    {% blocktrans with number=page_obj.number total=page_obj.paginator.num_pages %}
+                      Page {{ number }} of {{ total }}
+                    {% endblocktrans %}
+                  </span>
+                </li>
+
+                {% if page_obj.has_next %}
+                  <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ page_obj.next_page_number }}&order={{ order }}">
+                      {% trans "Next" %} &raquo;
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <span class="page-link">{% trans "Next" %} &raquo;</span>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
+          {% endif %}
+
+        {% else %}
+          <p class="text-muted">{% trans "No comments yet — be the first!" %}</p>
+        {% endif %}
+      </section>
+
+ {# -------------------- ADD COMMENT FORM -------------------- #}
+<section class="mt-4" id="add-comment">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h4 class="mb-0">{% trans "Add a comment" %}</h4>
+    <button type="button" id="toggle-image-help" class="btn btn-link btn-sm px-0">
+      ❓ {% trans "Show image upload tips" %}
+    </button>
+  </div>
+
+  <div id="image-help-panel"
+       class="alert alert-info small mt-2"
+       style="border-left: 4px solid #0d6efd; display: none;">
+    <strong>{% trans "How to upload one or more images in the editor" %}</strong>
+
+    <p class="mt-2 mb-1">
+      {% trans "To upload your first image, click the “Upload image” button in the editor toolbar and select a picture from your device." %}
+    </p>
+
+    <p class="mb-1">
+      {% trans "When adding more images, follow these steps to avoid replacing the previous one:" %}
+    </p>
+
+    <ol class="mt-1 mb-1">
+      <li>{% trans "Click the existing image once so a blue frame appears (this means it’s selected)." %}</li>
+      <li>{% trans "Press the Right Arrow key on your keyboard." %}</li>
+      <li>{% trans "The blue frame disappears — the cursor is now to the right of the image." %}</li>
+      <li>{% trans "Press Enter to create a new empty line below the image." %}</li>
+      <li>{% trans "Check that you see the blinking cursor on the new line." %}</li>
+      <li>{% trans "Click “Upload image” again and choose your next picture." %}</li>
+    </ol>
+
+    <p class="mb-1">
+      {% trans "For image 3, 4, 5… simply repeat: Arrow → Enter → Upload." %}
+    </p>
+
+    <p class="mb-0">
+      <em>
+        {% trans "If you upload while the blue frame is still around the image, CKEditor will replace it. Always move the cursor first before uploading the next image." %}
+      </em>
+    </p>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {{ form.hp }}
+    {{ form.non_field_errors }}
+
+    <div class="mb-3">
+      <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
+      {{ form.name }}
+      {% if form.name.errors %}
+        <div class="text-danger small">{{ form.name.errors|striptags }}</div>
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+      {{ form.email }}
+      {% if form.email.errors %}
+        <div class="text-danger small">{{ form.email.errors|striptags }}</div>
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.body.id_for_label }}" class="form-label">{{ form.body.label }}</label>
+      {{ form.body }}
+      {% if form.body.errors %}
+        <div class="text-danger small">{{ form.body.errors|striptags }}</div>
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.images.id_for_label }}" class="form-label">{{ form.images.label }}</label>
+      {{ form.images }}
+      {% if form.images.errors %}
+        <div class="text-danger small">{{ form.images.errors|striptags }}</div>
+      {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      {% trans "Post comment" %}
+    </button>
+  </form>
+</section>
+
+
+    </div>
+  </div>
+</div>
+
+{# -------- JS for collapsible replies -------- #}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // -------- Reply collapsible --------
+  var replyToggles = document.querySelectorAll(".reply-toggle");
+  replyToggles.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var targetSelector = btn.getAttribute("data-target");
+      var target = document.querySelector(targetSelector);
+      if (!target) return;
+
+      var isShown = target.classList.contains("show");
+
+      if (isShown) {
+        target.classList.remove("show");
+        btn.textContent = "{% trans 'Show reply ↓' %}";
+      } else {
+        target.classList.add("show");
+        btn.textContent = "{% trans 'Hide reply ↑' %}";
+      }
+    });
+  });
+
+  // -------- Image help panel toggle --------
+  var helpBtn = document.getElementById("toggle-image-help");
+  var helpPanel = document.getElementById("image-help-panel");
+
+  if (helpBtn && helpPanel) {
+    helpBtn.addEventListener("click", function () {
+      var isHidden =
+        helpPanel.style.display === "none" || helpPanel.style.display === "";
+
+      if (isHidden) {
+        helpPanel.style.display = "block";
+        helpBtn.textContent = "❓ {% trans 'Hide image upload tips' %}";
+      } else {
+        helpPanel.style.display = "none";
+        helpBtn.textContent = "❓ {% trans 'Show image upload tips' %}";
+      }
+    });
+  }
+});
+</script>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .comment-card {
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background: #ffffff;
+    position: relative;
+  }
+
+  /* clearfix so floated images cannot bleed into next comment */
+  .comment-card::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .comment-inner {
+    width: 100%;
+  }
+
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+  }
+
+  .comment-author-line {
+    font-weight: 600;
+  }
+
+  .comment-card img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+    border-radius: 6px;
+  }
+
+  .comment-body {
+    margin-top: 4px;
+  }
+
+  /* Reactions should always appear UNDER images, not beside them */
+  .comment-reactions {
+    margin-top: 8px;
+    clear: both;
+  }
+
+  .comment-reply {
+    border-left: 3px solid #9acd32;
+    padding-left: 12px;
+    margin-top: 10px;
+  }
+</style>
+{% endblock %}
