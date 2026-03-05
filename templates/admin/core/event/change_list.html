@@ -1,0 +1,16 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+
+{% block content_title %}
+  {{ block.super }}
+  {% if show_clone_warning %}
+    <div style="margin:12px 0; background:#ffe6e6; border:2px solid #b30000;
+                padding:14px; font-size:18px; font-weight:800; color:#b30000;
+                line-height:1.35;">
+      ⚠️ Always create your <u>NEW</u> event using the <strong>“Clone Selected Event”</strong> action.<br>
+      This will create an event labeled <strong>“--CLONE EVENT--”</strong> that you can update, check
+      <strong>“Website Ready”</strong> and Save.<br>
+      <span style="font-size:19px;">DO NOT edit existing events to create a new one.</span>
+    </div>
+  {% endif %}
+{% endblock %}
